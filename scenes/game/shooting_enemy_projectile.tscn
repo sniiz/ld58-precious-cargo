@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3 uid="uid://cgjvj480ja3pe"]
+
+[ext_resource type="Script" uid="uid://oie422niy8sd" path="res://scripts/shooting_enemy_projectile.gd" id="1_67a52"]
+[ext_resource type="Shader" uid="uid://o8ktdgcc3fux" path="res://shaders/fire.gdshader" id="1_w1bru"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2alia"]
+radius = 0.3
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_w1bru"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_67a52"]
+noise = SubResource("FastNoiseLite_w1bru")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_67a52"]
+render_priority = 0
+shader = ExtResource("1_w1bru")
+shader_parameter/time_speed = 2.0
+shader_parameter/spin = 0.0
+shader_parameter/flame_brightness = 0.6
+shader_parameter/color_intensity = 0.0
+shader_parameter/horizontal_frequency = 1.0
+shader_parameter/vertical_frequency = 1.0
+shader_parameter/size = -0.3
+shader_parameter/core_size = 1.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_67a52")
+shader_parameter/color1 = Color(0.286, 0.22, 0.733, 1)
+shader_parameter/color2 = Color(0.98, 0.38, 0.34, 1)
+shader_parameter/color3 = Color(0.98, 0.95, 0.53, 1)
+shader_parameter/color4 = Color(1, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_2alia"]
+material = SubResource("ShaderMaterial_67a52")
+radius = 0.4
+height = 0.8
+radial_segments = 8
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oufto"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_w1bru"]
+material = SubResource("StandardMaterial3D_oufto")
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="Gradient" id="Gradient_67a52"]
+offsets = PackedFloat32Array(0, 0.16756466, 0.421875, 0.7020474, 0.828125, 1)
+colors = PackedColorArray(0.9552271, 0.9445722, 0.8020639, 1, 0.98039216, 0.9490196, 0.5294118, 1, 0.9778914, 0.41726637, 0.3806242, 1, 0.35415202, 0.23900668, 0.69871736, 1, 0.28627452, 0.21960784, 0.73333335, 1, 0, 0, 0, 0)
+
+[node name="ShootingEnemyProjectile" type="Node3D"]
+script = ExtResource("1_67a52")
+
+[node name="Detector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 65515
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detector"]
+shape = SubResource("SphereShape3D_2alia")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("SphereMesh_2alia")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.95
+lifetime_randomness = 0.7
+mesh = SubResource("QuadMesh_w1bru")
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, -12, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+scale_amount_min = 0.2
+scale_amount_max = 0.5
+color_ramp = SubResource("Gradient_67a52")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.60133326, 0.53999996, 1, 1)
+light_bake_mode = 0
+omni_attenuation = 1.7
+
+[connection signal="area_entered" from="Detector" to="." method="_on_detector_area_entered"]
+[connection signal="body_entered" from="Detector" to="." method="_on_detector_body_entered"]
+[connection signal="finished" from="CPUParticles3D" to="." method="_on_cpu_particles_3d_finished"]

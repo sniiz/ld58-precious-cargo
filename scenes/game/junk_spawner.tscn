@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdcu4eyuc57eb"]
+
+[ext_resource type="Script" uid="uid://dei8oghdx4twj" path="res://scripts/junk_spawner.gd" id="1_5bxit"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5bxit"]
+shading_mode = 0
+albedo_color = Color(0, 1, 0.116666794, 1)
+distance_fade_mode = 2
+distance_fade_min_distance = 10.0
+distance_fade_max_distance = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_5bxit"]
+material = SubResource("StandardMaterial3D_5bxit")
+
+[node name="JunkSpawner" type="Node3D"]
+script = ExtResource("1_5bxit")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_5bxit")

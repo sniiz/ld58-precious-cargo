@@ -1,0 +1,129 @@
+[gd_scene load_steps=17 format=3 uid="uid://cefwpks6rkoic"]
+
+[ext_resource type="Texture2D" uid="uid://chi2h3q6sft7e" path="res://textures/3d/texture_05.png" id="1_80nbo"]
+[ext_resource type="Shader" uid="uid://b1dix5cgk1h6h" path="res://shaders/sky.gdshader" id="1_feb5d"]
+[ext_resource type="Script" uid="uid://dgi50i8r6xkhv" path="res://scripts/game.gd" id="1_ryrav"]
+[ext_resource type="PackedScene" uid="uid://dwlogv32l00yi" path="res://scenes/game/character.tscn" id="2_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://bcb352mbjmj7u" path="res://scenes/game/carryable.tscn" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://cdcu4eyuc57eb" path="res://scenes/game/junk_spawner.tscn" id="5_7jktm"]
+[ext_resource type="PackedScene" uid="uid://bq706q4lav45d" path="res://scenes/game/deposit_point.tscn" id="7_eow3j"]
+[ext_resource type="PackedScene" uid="uid://g58aar3pkban" path="res://scenes/game/enemy_spawner.tscn" id="9_hve3p"]
+[ext_resource type="PackedScene" uid="uid://dr4cmmisfumy5" path="res://scenes/ui/dialog_manager.tscn" id="9_vef74"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fc0e3"]
+shader = ExtResource("1_feb5d")
+shader_parameter/add_clouds = true
+shader_parameter/clouds_below = false
+shader_parameter/cloud_scale = 0.2999999932944
+shader_parameter/speed = 0.02000000095
+shader_parameter/cloud_dark = 0.26999999396496
+shader_parameter/cloud_light = 0.3499999921768
+shader_parameter/cloud_cover = 0.1499999966472
+shader_parameter/cloud_alpha = 4.85999989136928
+shader_parameter/sky_tint = 0.5
+shader_parameter/height_offset = 0.50000002375
+shader_parameter/sky_contribution = 0.0
+shader_parameter/color_dark = Color(0.10980392, 0.078431375, 0.1254902, 1)
+shader_parameter/color_light = Color(0.29803923, 0.1882353, 0.29803923, 1)
+
+[sub_resource type="Sky" id="Sky_e2o6t"]
+sky_material = SubResource("ShaderMaterial_fc0e3")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_feb5d"]
+background_mode = 2
+sky = SubResource("Sky_e2o6t")
+ambient_light_sky_contribution = 0.55
+reflected_light_source = 2
+tonemap_mode = 2
+glow_enabled = true
+glow_bloom = 0.05
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_mwb40"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5wjh"]
+albedo_texture = ExtResource("1_80nbo")
+uv1_scale = Vector3(50, 50, 50)
+texture_filter = 4
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mwb40"]
+size = Vector2(50, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vef74"]
+size = Vector3(1, 50, 50)
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_ryrav")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_feb5d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_mwb40")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_j5wjh")
+mesh = SubResource("PlaneMesh_mwb40")
+
+[node name="Character" parent="." instance=ExtResource("2_e2o6t")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.7071067, 0.6830127, -0.18301275, 0, 0.2588191, 0.96592593, 0.7071067, -0.6830127, 0.18301275, 0, 0, 0)
+light_color = Color(0.54, 0.44820002, 0.54, 1)
+directional_shadow_mode = 0
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+visible = false
+size = Vector3(52, 8, 50)
+box_projection = true
+
+[node name="JunkSpawner" parent="." instance=ExtResource("5_7jktm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -6)
+spawn_area = Vector3(40, 1, 35)
+junk = Array[PackedScene]([ExtResource("4_fc0e3")])
+
+[node name="TestTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="DepositPoint" parent="." instance=ExtResource("7_eow3j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27820396, 0, 15.526965)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DialogManager" parent="CanvasLayer" instance=ExtResource("9_vef74")]
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 25, 0)
+shape = SubResource("BoxShape3D_vef74")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 25, 0)
+shape = SubResource("BoxShape3D_vef74")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 25, 0)
+shape = SubResource("BoxShape3D_vef74")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 25, 0)
+shape = SubResource("BoxShape3D_vef74")
+
+[node name="EnemySpawner" parent="." instance=ExtResource("9_hve3p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.450581e-09, 0)
+spawn_area = Vector3(50, 0.01, 50)
+
+[connection signal="timeout" from="TestTimer" to="." method="_on_test_timer_timeout"]

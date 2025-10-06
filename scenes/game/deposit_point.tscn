@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://bq706q4lav45d"]
+
+[ext_resource type="Script" uid="uid://cg03vjohtp4rf" path="res://scripts/deposit_point.gd" id="1_4w1ee"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_754bc"]
+size = Vector3(2, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_754bc"]
+size = Vector3(2, 1, 1)
+
+[node name="DepositPoint" type="StaticBody3D" groups=["deposit"]]
+collision_layer = 64
+collision_mask = 0
+script = ExtResource("1_4w1ee")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_754bc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_754bc")
+skeleton = NodePath("")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
+pixel_size = 0.001
+billboard = 1
+no_depth_test = true
+fixed_size = true
+text = "[F] Deposit Loot"
+
+[connection signal="player_target" from="." to="." method="_on_player_target"]
+[connection signal="player_untarget" from="." to="." method="_on_player_untarget"]
