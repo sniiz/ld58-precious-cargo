@@ -1,9 +1,11 @@
-[gd_scene load_steps=54 format=4 uid="uid://dwlogv32l00yi"]
+[gd_scene load_steps=56 format=4 uid="uid://dwlogv32l00yi"]
 
 [ext_resource type="Script" uid="uid://dlggo3og1tacs" path="res://scripts/character.gd" id="1_qhwh2"]
 [ext_resource type="AudioStream" uid="uid://cwej6we7dqdap" path="res://audio/sfx/footsteps/0.ogg" id="2_kvy25"]
 [ext_resource type="AudioStream" uid="uid://sjp03brui6wg" path="res://audio/sfx/footsteps/1.ogg" id="3_1leso"]
+[ext_resource type="AudioStream" uid="uid://mgexaw1sbq8k" path="res://audio/sfx/zapsplat_foley_stick_medium_swing_in_air_whoosh_fast_001_110466.mp3" id="3_ikodv"]
 [ext_resource type="AudioStream" uid="uid://d18hviplhemo7" path="res://audio/sfx/footsteps/2.ogg" id="4_jt4eu"]
+[ext_resource type="AudioStream" uid="uid://bffk8oh4sqlgu" path="res://audio/sfx/zapsplat_foley_stick_medium_swing_in_air_whoosh_fast_002_110398.mp3" id="4_pbpxc"]
 [ext_resource type="AudioStream" uid="uid://bwrb4o7el1neb" path="res://audio/sfx/footsteps/3.ogg" id="5_syl27"]
 [ext_resource type="AudioStream" uid="uid://c3sg8d3bqq0bu" path="res://audio/sfx/footsteps/4.ogg" id="6_srql7"]
 [ext_resource type="AudioStream" uid="uid://e7yx2kigvtt5" path="res://audio/sfx/footsteps/5.ogg" id="7_6i5sj"]
@@ -12,9 +14,9 @@
 [ext_resource type="AudioStream" uid="uid://xhqm6v3851xv" path="res://audio/sfx/footsteps/8.ogg" id="10_pbpxc"]
 [ext_resource type="FontFile" uid="uid://cibhogromavd7" path="res://fonts/ShifterSans-Regular.otf" id="11_1leso"]
 [ext_resource type="Shader" uid="uid://cg6dbgwmxq85l" path="res://shaders/vignette.gdshader" id="12_jt4eu"]
-[ext_resource type="Shader" uid="uid://bt7nup1l0p5o" path="res://shaders/transition.gdshader" id="13_6i5sj"]
 [ext_resource type="Texture2D" uid="uid://rq6qvlhkneku" path="res://textures/2d/ui-box.png" id="13_syl27"]
 [ext_resource type="AudioStream" uid="uid://cvapocdg2ycm1" path="res://audio/sfx/coins.ogg" id="14_srql7"]
+[ext_resource type="Texture2D" uid="uid://do20yu462i7i4" path="res://textures/2d/Untitled-1.png" id="15_6i5sj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c7aaw"]
 resource_name = "Material #46"
@@ -86,6 +88,7 @@ grow_amount = 0.4
 stencil_mode = 3
 stencil_flags = 1
 stencil_compare = 5
+stencil_reference = 2
 metadata/_stencil_owned = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1leso"]
@@ -99,11 +102,20 @@ emission_texture = SubResource("NoiseTexture2D_syl27")
 detail_mask = SubResource("GradientTexture2D_srql7")
 uv2_scale = Vector3(0.03, 0.03, 0.03)
 uv2_triplanar = true
+use_z_clip_scale = true
 z_clip_scale = 0.7
 stencil_mode = 1
 stencil_flags = 2
+stencil_reference = 2
 stencil_color = Color(0.24313726, 0.36862746, 0.30588236, 1)
 stencil_outline_thickness = 0.4
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jf311"]
+playback_mode = 1
+random_pitch = 1.1
+streams_count = 2
+stream_0/stream = ExtResource("3_ikodv")
+stream_1/stream = ExtResource("4_pbpxc")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jctcc"]
 radius = 0.45
@@ -293,6 +305,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector3(0.6321655, -0.30000007, -0.8671484)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head/CamContainer/Camera3D/Arm/Whoosh:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_syl27"]
 resource_name = "recoil"
@@ -333,6 +357,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(0.7, 2, 1),
 "update": 0,
 "values": [Vector3(0.632, -0.3, -0.707), Vector3(0.632, -0.3, -0.877), Vector3(0.6321655, -0.30000007, -0.8671484)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head/CamContainer/Camera3D/Arm/Whoosh:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_srql7"]
@@ -475,6 +511,18 @@ tracks/10/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("CanvasLayer/Control2:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Gradient" id="Gradient_jt4eu"]
 offsets = PackedFloat32Array(0.2133191, 1)
@@ -578,6 +626,18 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(2, 1),
 "update": 0,
 "values": [-2.0, 0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CanvasLayer/Control2:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_jt4eu"]
@@ -720,105 +780,14 @@ shader_parameter/radius = 1.0
 shader_parameter/speed = 0.400000019
 shader_parameter/effect_color = Color(0.2901961, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tp1u3"]
-shader = ExtResource("13_6i5sj")
-shader_parameter/AspectRatio = 1.778
-shader_parameter/Diamonds = 24.0
-shader_parameter/pixel_size = 0.08
-shader_parameter/height = -1.0
-shader_parameter/disable_pixel = true
-shader_parameter/color = Color(0.1882353, 0.11764706, 0.23529412, 1)
-
-[sub_resource type="Animation" id="Animation_pbpxc"]
-resource_name = "ttb"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Transition:material:shader_parameter/height")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [-1.0, 0.7, -1.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Transition:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Transition:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0, 0),
-"update": 0,
-"values": [3.141592653589793, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_tky42"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Transition:material:shader_parameter/height")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-1.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Transition:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Transition:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jf311"]
-_data = {
-&"RESET": SubResource("Animation_tky42"),
-&"ttb": SubResource("Animation_pbpxc")
-}
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_srql7"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6i5sj"]
 
 [sub_resource type="FontVariation" id="FontVariation_syl27"]
 base_font = ExtResource("11_1leso")
 spacing_glyph = 1
 spacing_space = -5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_srql7"]
 
 [sub_resource type="Animation" id="Animation_ikodv"]
 length = 0.001
@@ -836,7 +805,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath("Label:theme_override_colors/font_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -848,7 +817,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = true
+tracks/2/enabled = false
 tracks/2/path = NodePath("..:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -857,6 +826,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(-32, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MoneySound:pitch_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../NinePatchRect:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_tp1u3"]
@@ -884,7 +877,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.16666667, 0.26666668),
 "transitions": PackedFloat32Array(1, 0.5, 1),
 "update": 0,
-"values": [Color(1, 0.65833336, 0.18, 1), Color(1, 0.65833336, 0.18, 1), Color(0, 0, 0, 1)]
+"values": [Color(0.18039216, 1, 0.6313726, 1), Color(0.18039216, 1, 0.6313726, 1), Color(0, 0, 0, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -896,11 +889,11 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.16666667, 0.26667002),
 "transitions": PackedFloat32Array(1, 0.5, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(1, 0.65833336, 0.18, 1)]
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0.18039216, 1, 0.6313726, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/path = NodePath("..:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
@@ -925,14 +918,111 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0)
 }
 tracks/4/use_blend = true
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MoneySound:pitch_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_jf311"]
+resource_name = "spend"
+length = 0.26667002
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("../NinePatchRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../NinePatchRect:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.26666668),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Color(1, 0.2575, 0.19, 1), Color(1, 0.2575, 0.19, 1), Color(0, 0, 0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:theme_override_colors/font_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.26667002),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(1, 0.65833336, 0.18, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath("..:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.06666668),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(-32, 6), Vector2(-32, 0)]
+}
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MoneySound")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("14_srql7")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/4/use_blend = true
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MoneySound:pitch_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.8]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pbpxc"]
 _data = {
 &"RESET": SubResource("Animation_ikodv"),
-&"add": SubResource("Animation_tp1u3")
+&"add": SubResource("Animation_tp1u3"),
+&"spend": SubResource("Animation_jf311")
 }
 
+[sub_resource type="FontVariation" id="FontVariation_srql7"]
+base_font = ExtResource("11_1leso")
+spacing_glyph = 1
+
 [node name="Character" type="CharacterBody3D" groups=["player"]]
+process_mode = 1
 collision_layer = 2
 collision_mask = 49
 script = ExtResource("1_qhwh2")
@@ -956,6 +1046,7 @@ hit_from_inside = true
 [node name="Plane005" type="MeshInstance3D" parent="Head/CamContainer/Camera3D/Arm"]
 transform = Transform3D(0.0018175691, 0.0077848346, -0.0003045764, 0.007255647, -0.0015775141, 0.002977753, 0.0028376058, -0.0009527715, -0.007418908, 0.63743836, -0.45649612, -0.9479242)
 cast_shadow = 0
+gi_mode = 0
 mesh = SubResource("ArrayMesh_kvy25")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_1leso")
@@ -982,6 +1073,12 @@ font = ExtResource("11_1leso")
 font_size = 56
 outline_size = 8
 uppercase = true
+
+[node name="Whoosh" type="AudioStreamPlayer3D" parent="Head/CamContainer/Camera3D/Arm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.632, -0.29999995, -0.707)
+stream = SubResource("AudioStreamRandomizer_jf311")
+panning_strength = 0.2
+bus = &"Sfx"
 
 [node name="ThrowMarker" type="Marker3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
@@ -1065,47 +1162,66 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Transition" type="ColorRect" parent="CanvasLayer"]
-visible = false
-self_modulate = Color(0.07058824, 0.15686275, 0.19607843, 1)
-z_index = 10
-z_as_relative = false
-texture_filter = 3
-material = SubResource("ShaderMaterial_tp1u3")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(800, 450)
-mouse_filter = 2
-
-[node name="TransitionAnimator" type="AnimationPlayer" parent="CanvasLayer"]
-libraries = {
-&"": SubResource("AnimationLibrary_jf311")
-}
-speed_scale = 1.5
-
 [node name="Control" type="Control" parent="CanvasLayer"]
 texture_filter = 3
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -72.0
-offset_top = 32.0
-offset_right = -32.0
-offset_bottom = 72.0
+offset_left = -88.0
+offset_top = 56.0
+offset_right = -48.0
+offset_bottom = 96.0
 grow_horizontal = 0
 mouse_filter = 2
+
+[node name="Label" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = -52.0
+offset_top = -24.0
+offset_right = 18.0
+offset_bottom = 12.0
+pivot_offset = Vector2(70, 0)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6i5sj")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Label"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+texture = ExtResource("13_syl27")
+patch_margin_left = 24
+patch_margin_top = 10
+patch_margin_right = 24
+patch_margin_bottom = 10
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Label"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Label/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0.18039215, 1, 0.6313726, 1)
+theme_override_fonts/font = SubResource("FontVariation_syl27")
+theme_override_font_sizes/font_size = 16
+text = "score "
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="Money" type="PanelContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -72.0
-offset_bottom = 31.000004
+offset_left = -82.0
+offset_top = 6.0
+offset_right = -22.0
+offset_bottom = 42.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1127,17 +1243,17 @@ axis_stretch_vertical = 1
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/Money/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(1, 0.65833336, 0.18, 1)
+theme_override_colors/font_color = Color(0.18039215, 1, 0.6313726, 1)
 theme_override_fonts/font = SubResource("FontVariation_syl27")
-theme_override_font_sizes/font_size = 24
-text = "$ 0"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 30
+text = "0"
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="MoneyAnimator" type="AnimationPlayer" parent="CanvasLayer/Control/Money/MarginContainer"]
@@ -1147,3 +1263,179 @@ libraries = {
 
 [node name="MoneySound" type="AudioStreamPlayer" parent="CanvasLayer/Control/Money/MarginContainer"]
 bus = &"Sfx"
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 24.999996
+offset_top = 42.902428
+offset_right = 93.902405
+offset_bottom = 62.902428
+rotation = -1.5707964
+nine_patch_stretch = true
+stretch_margin_left = 24
+stretch_margin_top = 10
+stretch_margin_right = 24
+stretch_margin_bottom = 10
+texture_under = ExtResource("13_syl27")
+texture_progress = ExtResource("13_syl27")
+tint_under = Color(0, 0, 0, 1)
+tint_progress = Color(0.18039216, 1, 0.6313726, 1)
+
+[node name="Label2" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = -120.0
+offset_top = 54.0
+offset_right = 18.0
+offset_bottom = 90.0
+pivot_offset = Vector2(70, 0)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6i5sj")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Label2"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+texture = ExtResource("13_syl27")
+patch_margin_left = 24
+patch_margin_top = 10
+patch_margin_right = 24
+patch_margin_bottom = 10
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Label2"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Label2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0.15810002, 0.42826495, 0.93, 1)
+theme_override_fonts/font = SubResource("FontVariation_srql7")
+theme_override_font_sizes/font_size = 16
+text = "DEPOSIT POINT"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Money2" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -123.0
+offset_top = 86.0
+offset_right = -22.0
+offset_bottom = 122.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_srql7")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Money2"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+texture = ExtResource("13_syl27")
+patch_margin_left = 24
+patch_margin_top = 10
+patch_margin_right = 24
+patch_margin_bottom = 10
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Money2"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Money2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("FontVariation_syl27")
+theme_override_font_sizes/font_size = 30
+text = "OPEN"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 63.0
+offset_right = 79.0
+offset_bottom = 113.0
+step = 0.01
+fill_mode = 4
+texture_under = ExtResource("15_6i5sj")
+texture_progress = ExtResource("15_6i5sj")
+tint_under = Color(0, 0, 0, 1)
+tint_progress = Color(0.15810002, 0.42826495, 0.93, 1)
+
+[node name="Control2" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 72.0
+offset_top = -56.0
+offset_right = 112.0
+offset_bottom = -16.0
+grow_vertical = 0
+
+[node name="Label" type="PanelContainer" parent="CanvasLayer/Control2"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = -32.0
+offset_right = 80.0
+offset_bottom = 4.0
+pivot_offset = Vector2(70, 0)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6i5sj")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control2/Label"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+texture = ExtResource("13_syl27")
+patch_margin_left = 24
+patch_margin_top = 10
+patch_margin_right = 24
+patch_margin_bottom = 10
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control2/Label"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_left = 11
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control2/Label/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0.74509805, 0.1882353, 0.14117648, 1)
+theme_override_fonts/font = SubResource("FontVariation_syl27")
+theme_override_font_sizes/font_size = 16
+text = "heALTH"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control2"]
+layout_mode = 0
+offset_left = -8.0
+offset_right = 271.0
+offset_bottom = 20.0
+step = 0.01
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 24
+stretch_margin_top = 10
+stretch_margin_right = 24
+stretch_margin_bottom = 10
+texture_under = ExtResource("13_syl27")
+texture_progress = ExtResource("13_syl27")
+tint_under = Color(0, 0, 0, 1)
+tint_progress = Color(0.74509805, 0.1882353, 0.14117648, 1)

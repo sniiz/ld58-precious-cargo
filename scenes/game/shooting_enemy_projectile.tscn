@@ -18,7 +18,7 @@ render_priority = 0
 shader = ExtResource("1_w1bru")
 shader_parameter/time_speed = 2.0
 shader_parameter/spin = 0.0
-shader_parameter/flame_brightness = 0.6
+shader_parameter/flame_brightness = 0.4
 shader_parameter/color_intensity = 0.0
 shader_parameter/horizontal_frequency = 1.0
 shader_parameter/vertical_frequency = 1.0
@@ -56,11 +56,12 @@ offsets = PackedFloat32Array(0, 0.16756466, 0.421875, 0.7020474, 0.828125, 1)
 colors = PackedColorArray(0.9552271, 0.9445722, 0.8020639, 1, 0.98039216, 0.9490196, 0.5294118, 1, 0.9778914, 0.41726637, 0.3806242, 1, 0.35415202, 0.23900668, 0.69871736, 1, 0.28627452, 0.21960784, 0.73333335, 1, 0, 0, 0, 0)
 
 [node name="ShootingEnemyProjectile" type="Node3D"]
+process_mode = 1
 script = ExtResource("1_67a52")
 
 [node name="Detector" type="Area3D" parent="."]
 collision_layer = 0
-collision_mask = 65515
+collision_mask = 65519
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Detector"]
@@ -90,6 +91,8 @@ color_ramp = SubResource("Gradient_67a52")
 light_color = Color(0.60133326, 0.53999996, 1, 1)
 light_bake_mode = 0
 omni_attenuation = 1.7
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 
 [connection signal="area_entered" from="Detector" to="." method="_on_detector_area_entered"]
 [connection signal="body_entered" from="Detector" to="." method="_on_detector_body_entered"]

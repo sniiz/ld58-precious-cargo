@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 var bullet_prefab = preload("res://scenes/game/shooting_enemy_projectile.tscn")
 
-var health := 130
+var health := 100
 @onready var nozzle: Marker3D = $Nozzle
 @onready var sprite: AnimatedSprite3D = $Sprite
 @onready var target: CharacterBody3D = get_tree().get_first_node_in_group("player")
@@ -18,7 +18,7 @@ var health := 130
 @export var close_range := 20.0                 # distance at which it becomes "restless"
 @export var far_range := 30.0                   # distance at which it calms down
 
-var shoot_timer := 0.0
+var shoot_timer := base_shoot_interval * 1.5
 var wander_timer := 0.0
 var wander_target: Vector3
 var wandering := false
@@ -33,6 +33,7 @@ func on_damage(damage: float) -> void:
 	hurt.stop()
 	hurt.play("hurt")
 	if health <= 0:
+		target.add_money(ceil(randi_range(4, 6) * get_parent().enemy_payout_mult))
 		queue_free()
 
 func _physics_process(delta: float) -> void:
@@ -72,7 +73,7 @@ func _physics_process(delta: float) -> void:
 		shoot()
 		shoot_timer = shoot_interval
 
-	if health < 130:
+	if health < 100:
 		healthbar.visible = !cam.is_position_behind(global_position + Vector3.UP * 4.0)
 		if healthbar.visible:
 			healthbar.position = cam.unproject_position(global_position + Vector3.UP * 4.0) + Vector2(-healthbar.size.x/2, 0)

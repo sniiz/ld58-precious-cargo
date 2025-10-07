@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cefwpks6rkoic"]
+[gd_scene load_steps=26 format=3 uid="uid://cefwpks6rkoic"]
 
 [ext_resource type="Texture2D" uid="uid://chi2h3q6sft7e" path="res://textures/3d/texture_05.png" id="1_80nbo"]
 [ext_resource type="Shader" uid="uid://b1dix5cgk1h6h" path="res://shaders/sky.gdshader" id="1_feb5d"]
@@ -8,7 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://cdcu4eyuc57eb" path="res://scenes/game/junk_spawner.tscn" id="5_7jktm"]
 [ext_resource type="PackedScene" uid="uid://bq706q4lav45d" path="res://scenes/game/deposit_point.tscn" id="7_eow3j"]
 [ext_resource type="PackedScene" uid="uid://g58aar3pkban" path="res://scenes/game/enemy_spawner.tscn" id="9_hve3p"]
+[ext_resource type="PackedScene" uid="uid://bsp3cg8mr0pu1" path="res://scenes/ui/upgrade_manager.tscn" id="9_iotsf"]
+[ext_resource type="Shader" uid="uid://bt7nup1l0p5o" path="res://shaders/transition.gdshader" id="9_mfdv2"]
 [ext_resource type="PackedScene" uid="uid://dr4cmmisfumy5" path="res://scenes/ui/dialog_manager.tscn" id="9_vef74"]
+[ext_resource type="PackedScene" uid="uid://dd5odsiforht1" path="res://scenes/game/column.tscn" id="11_mfdv2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fc0e3"]
 shader = ExtResource("1_feb5d")
@@ -33,97 +36,285 @@ process_mode = 3
 [sub_resource type="Environment" id="Environment_feb5d"]
 background_mode = 2
 sky = SubResource("Sky_e2o6t")
-ambient_light_sky_contribution = 0.55
+ambient_light_sky_contribution = 0.2
 reflected_light_source = 2
-tonemap_mode = 2
+tonemap_mode = 3
+tonemap_exposure = 2.2
+tonemap_white = 3.0
 glow_enabled = true
-glow_bloom = 0.05
+glow_bloom = 0.08
+adjustment_enabled = true
+adjustment_saturation = 1.1
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_mwb40"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iotsf"]
+shader = ExtResource("9_mfdv2")
+shader_parameter/AspectRatio = 1.778
+shader_parameter/Diamonds = 24.0
+shader_parameter/pixel_size = 0.08
+shader_parameter/height = -1.0
+shader_parameter/disable_pixel = true
+shader_parameter/color = Color(0, 0, 0, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5wjh"]
+[sub_resource type="Animation" id="Animation_mfdv2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Transition:material:shader_parameter/height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Transition:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Transition:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hve3p"]
+resource_name = "ttb"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Transition:material:shader_parameter/height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(2, 0.5, 1),
+"update": 0,
+"values": [-1.0, 0.9, -1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Transition:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Transition:rotation")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3.141592653589793, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jf311"]
+_data = {
+&"RESET": SubResource("Animation_mfdv2"),
+&"ttb": SubResource("Animation_hve3p")
+}
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_vef74"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hve3p"]
 albedo_texture = ExtResource("1_80nbo")
 uv1_scale = Vector3(50, 50, 50)
 texture_filter = 4
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_mwb40"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_vef74"]
+material = SubResource("StandardMaterial3D_hve3p")
 size = Vector2(50, 50)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vef74"]
 size = Vector3(1, 50, 50)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mfdv2"]
+albedo_texture = ExtResource("1_80nbo")
+uv1_scale = Vector3(15, 15, 1)
+texture_filter = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_mfdv2"]
+material = SubResource("StandardMaterial3D_mfdv2")
+size = Vector3(15.8, 1, 15.8)
+
 [node name="Game" type="Node3D"]
+process_mode = 3
 script = ExtResource("1_ryrav")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_feb5d")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("WorldBoundaryShape3D_mwb40")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_j5wjh")
-mesh = SubResource("PlaneMesh_mwb40")
-
 [node name="Character" parent="." instance=ExtResource("2_e2o6t")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.7071067, 0.6830127, -0.18301275, 0, 0.2588191, 0.96592593, 0.7071067, -0.6830127, 0.18301275, 0, 0, 0)
+transform = Transform3D(0.88294744, -0.37245682, 0.28579623, 0, 0.6087614, 0.79335344, -0.4694715, -0.7004894, 0.5375045, 0, 0, 0)
 light_color = Color(0.54, 0.44820002, 0.54, 1)
-directional_shadow_mode = 0
+light_energy = 1.5
+light_bake_mode = 1
+directional_shadow_blend_splits = true
 
-[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-visible = false
-size = Vector3(52, 8, 50)
-box_projection = true
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.88294774, 0.37245673, -0.28579628, -2.5479482e-08, 0.6087614, 0.79335344, 0.4694716, 0.7004894, -0.5375046, 0, 0, 0)
+light_color = Color(0.10980392, 0.078431375, 0.1254902, 1)
+light_energy = 1.8
+light_bake_mode = 0
 
 [node name="JunkSpawner" parent="." instance=ExtResource("5_7jktm")]
+process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -6)
+visible = false
 spawn_area = Vector3(40, 1, 35)
 junk = Array[PackedScene]([ExtResource("4_fc0e3")])
 
-[node name="TestTimer" type="Timer" parent="."]
+[node name="EnemyTimer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
 
+[node name="JunkTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
 [node name="DepositPoint" parent="." instance=ExtResource("7_eow3j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27820396, 0, 15.526965)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5051518, 0, 22.526966)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="DialogManager" parent="CanvasLayer" instance=ExtResource("9_vef74")]
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+[node name="Transition" type="ColorRect" parent="CanvasLayer"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+z_index = 10
+z_as_relative = false
+texture_filter = 3
+material = SubResource("ShaderMaterial_iotsf")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(800, 450)
+mouse_filter = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 25, 0)
-shape = SubResource("BoxShape3D_vef74")
+[node name="TransitionAnimator" type="AnimationPlayer" parent="CanvasLayer"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_jf311")
+}
 
-[node name="StaticBody3D3" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 25, 0)
-shape = SubResource("BoxShape3D_vef74")
-
-[node name="StaticBody3D4" type="StaticBody3D" parent="."]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 25, 0)
-shape = SubResource("BoxShape3D_vef74")
-
-[node name="StaticBody3D5" type="StaticBody3D" parent="."]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 25, 0)
-shape = SubResource("BoxShape3D_vef74")
+[node name="UpgradeManager" parent="CanvasLayer" instance=ExtResource("9_iotsf")]
 
 [node name="EnemySpawner" parent="." instance=ExtResource("9_hve3p")]
+process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.450581e-09, 0)
+visible = false
 spawn_area = Vector3(50, 0.01, 50)
 
-[connection signal="timeout" from="TestTimer" to="." method="_on_test_timer_timeout"]
+[node name="DepositOpenTime" type="Timer" parent="."]
+process_mode = 1
+process_callback = 0
+wait_time = 8.0
+one_shot = true
+
+[node name="DepositClosedTime" type="Timer" parent="."]
+process_mode = 1
+process_callback = 0
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_vef74")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_vef74")
+
+[node name="Barrier" type="Node3D" parent="."]
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Barrier"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 25, 0)
+shape = SubResource("BoxShape3D_vef74")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="Barrier"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier/StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 25, 0)
+shape = SubResource("BoxShape3D_vef74")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="Barrier"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier/StaticBody3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 25, 0)
+shape = SubResource("BoxShape3D_vef74")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="Barrier"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier/StaticBody3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 25, 0)
+shape = SubResource("BoxShape3D_vef74")
+
+[node name="Column" parent="." instance=ExtResource("11_mfdv2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 7)
+
+[node name="Column5" parent="." instance=ExtResource("11_mfdv2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+
+[node name="Column6" parent="." instance=ExtResource("11_mfdv2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+
+[node name="Column2" parent="." instance=ExtResource("11_mfdv2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 7)
+
+[node name="Column3" parent="." instance=ExtResource("11_mfdv2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
+
+[node name="Column4" parent="." instance=ExtResource("11_mfdv2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.9, 0)
+mesh = SubResource("BoxMesh_mfdv2")
+skeleton = NodePath("")
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3000002, 0)
+visible = false
+size = Vector3(53, 10, 57)
+
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
+[connection signal="timeout" from="JunkTimer" to="." method="_on_test_timer_timeout"]
+[connection signal="timeout" from="DepositOpenTime" to="." method="_on_deposit_open_time_timeout"]
+[connection signal="timeout" from="DepositClosedTime" to="." method="_on_deposit_closed_time_timeout"]

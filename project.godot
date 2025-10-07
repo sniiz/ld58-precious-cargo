@@ -11,8 +11,11 @@ config_version=5
 [application]
 
 config/name="PRECIOUS CARGO"
-run/main_scene="uid://cefwpks6rkoic"
+run/main_scene="uid://bios7hyy37dgr"
 config/features=PackedStringArray("4.5", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/use_filter=false
+boot_splash/image="uid://811q62krvvko"
 config/icon="res://icon.svg"
 
 [display]

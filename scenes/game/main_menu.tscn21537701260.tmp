@@ -1,0 +1,424 @@
+[gd_scene load_steps=32 format=3 uid="uid://bios7hyy37dgr"]
+
+[ext_resource type="Script" uid="uid://dgi50i8r6xkhv" path="res://scripts/game.gd" id="1_efcww"]
+[ext_resource type="Script" uid="uid://bqp6aws2f4j85" path="res://scenes/game/main_menu.gd" id="1_nsdtn"]
+[ext_resource type="Shader" uid="uid://b1dix5cgk1h6h" path="res://shaders/sky.gdshader" id="2_nsdtn"]
+[ext_resource type="PackedScene" uid="uid://cdcu4eyuc57eb" path="res://scenes/game/junk_spawner.tscn" id="3_4oldi"]
+[ext_resource type="PackedScene" uid="uid://bcb352mbjmj7u" path="res://scenes/game/carryable.tscn" id="4_73xsm"]
+[ext_resource type="PackedScene" uid="uid://bq706q4lav45d" path="res://scenes/game/deposit_point.tscn" id="5_21mov"]
+[ext_resource type="PackedScene" uid="uid://dr4cmmisfumy5" path="res://scenes/ui/dialog_manager.tscn" id="6_ados7"]
+[ext_resource type="Shader" uid="uid://bt7nup1l0p5o" path="res://shaders/transition.gdshader" id="7_648uh"]
+[ext_resource type="PackedScene" uid="uid://bsp3cg8mr0pu1" path="res://scenes/ui/upgrade_manager.tscn" id="8_dwvss"]
+[ext_resource type="PackedScene" uid="uid://g58aar3pkban" path="res://scenes/game/enemy_spawner.tscn" id="9_yypk0"]
+[ext_resource type="Texture2D" uid="uid://chi2h3q6sft7e" path="res://textures/3d/texture_05.png" id="10_p78u7"]
+[ext_resource type="PackedScene" uid="uid://dd5odsiforht1" path="res://scenes/game/column.tscn" id="11_he4cy"]
+[ext_resource type="Texture2D" uid="uid://5y8yc2gwwmie" path="res://textures/2d/logo.png" id="13_4oldi"]
+[ext_resource type="FontFile" uid="uid://cibhogromavd7" path="res://fonts/ShifterSans-Regular.otf" id="14_73xsm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fc0e3"]
+shader = ExtResource("2_nsdtn")
+shader_parameter/add_clouds = true
+shader_parameter/clouds_below = false
+shader_parameter/cloud_scale = 0.2999999932944
+shader_parameter/speed = 0.02000000095
+shader_parameter/cloud_dark = 0.26999999396496
+shader_parameter/cloud_light = 0.3499999921768
+shader_parameter/cloud_cover = 0.1499999966472
+shader_parameter/cloud_alpha = 4.85999989136928
+shader_parameter/sky_tint = 0.5
+shader_parameter/height_offset = 0.50000002375
+shader_parameter/sky_contribution = 0.0
+shader_parameter/color_dark = Color(0.10980392, 0.078431375, 0.1254902, 1)
+shader_parameter/color_light = Color(0.29803923, 0.1882353, 0.29803923, 1)
+
+[sub_resource type="Sky" id="Sky_e2o6t"]
+sky_material = SubResource("ShaderMaterial_fc0e3")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_feb5d"]
+background_mode = 2
+sky = SubResource("Sky_e2o6t")
+ambient_light_sky_contribution = 0.2
+reflected_light_source = 2
+tonemap_mode = 3
+tonemap_exposure = 2.2
+tonemap_white = 3.0
+glow_enabled = true
+glow_bloom = 0.08
+adjustment_enabled = true
+adjustment_saturation = 1.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iotsf"]
+shader = ExtResource("7_648uh")
+shader_parameter/AspectRatio = 1.778
+shader_parameter/Diamonds = 24.0
+shader_parameter/pixel_size = 0.08
+shader_parameter/height = -1.0
+shader_parameter/disable_pixel = true
+shader_parameter/color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_mfdv2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Transition:material:shader_parameter/height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Transition:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Transition:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hve3p"]
+resource_name = "ttb"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Transition:material:shader_parameter/height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(2, 0.5, 1),
+"update": 0,
+"values": [-1.0, 0.9, -1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Transition:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Transition:rotation")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3.141592653589793, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jf311"]
+_data = {
+&"RESET": SubResource("Animation_mfdv2"),
+&"ttb": SubResource("Animation_hve3p")
+}
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_vef74"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hve3p"]
+albedo_texture = ExtResource("10_p78u7")
+uv1_scale = Vector3(50, 50, 50)
+texture_filter = 4
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vef74"]
+material = SubResource("StandardMaterial3D_hve3p")
+size = Vector2(50, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vef74"]
+size = Vector3(1, 50, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mfdv2"]
+albedo_texture = ExtResource("10_p78u7")
+uv1_scale = Vector3(15, 15, 1)
+texture_filter = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_mfdv2"]
+material = SubResource("StandardMaterial3D_mfdv2")
+size = Vector3(15.8, 1, 15.8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73xsm"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0, 0, 0, 1)
+expand_margin_top = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21mov"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_top = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_648uh"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0, 0, 0, 1)
+expand_margin_top = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ados7"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[node name="MainMenu" type="Node3D"]
+script = ExtResource("1_nsdtn")
+
+[node name="Game" type="Node3D" parent="."]
+process_mode = 3
+script = ExtResource("1_efcww")
+active = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Game"]
+environment = SubResource("Environment_feb5d")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Game"]
+transform = Transform3D(0.88294744, -0.37245682, 0.28579623, 0, 0.6087614, 0.79335344, -0.4694715, -0.7004894, 0.5375045, 0, 0, 0)
+light_color = Color(0.54, 0.44820002, 0.54, 1)
+light_energy = 1.5
+light_bake_mode = 1
+directional_shadow_blend_splits = true
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Game"]
+transform = Transform3D(-0.88294774, 0.37245673, -0.28579628, -2.5479482e-08, 0.6087614, 0.79335344, 0.4694716, 0.7004894, -0.5375046, 0, 0, 0)
+light_color = Color(0.10980392, 0.078431375, 0.1254902, 1)
+light_energy = 1.8
+light_bake_mode = 0
+
+[node name="JunkSpawner" parent="Game" instance=ExtResource("3_4oldi")]
+process_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -6)
+visible = false
+spawn_area = Vector3(40, 1, 35)
+junk = Array[PackedScene]([ExtResource("4_73xsm")])
+
+[node name="EnemyTimer" type="Timer" parent="Game"]
+wait_time = 5.0
+autostart = true
+
+[node name="JunkTimer" type="Timer" parent="Game"]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="DepositPoint" parent="Game" instance=ExtResource("5_21mov")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.9948483, 0, 21.426966)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Game"]
+visible = false
+
+[node name="DialogManager" parent="Game/CanvasLayer" instance=ExtResource("6_ados7")]
+
+[node name="Transition" type="ColorRect" parent="Game/CanvasLayer"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+z_index = 10
+z_as_relative = false
+texture_filter = 3
+material = SubResource("ShaderMaterial_iotsf")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(800, 450)
+mouse_filter = 2
+
+[node name="TransitionAnimator" type="AnimationPlayer" parent="Game/CanvasLayer"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_jf311")
+}
+
+[node name="UpgradeManager" parent="Game/CanvasLayer" instance=ExtResource("8_dwvss")]
+
+[node name="EnemySpawner" parent="Game" instance=ExtResource("9_yypk0")]
+process_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.450581e-09, 0)
+visible = false
+spawn_area = Vector3(50, 0.01, 50)
+
+[node name="DepositOpenTime" type="Timer" parent="Game"]
+process_mode = 1
+process_callback = 0
+wait_time = 8.0
+one_shot = true
+
+[node name="DepositClosedTime" type="Timer" parent="Game"]
+process_mode = 1
+process_callback = 0
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[node name="Floor" type="StaticBody3D" parent="Game"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Floor"]
+shape = SubResource("WorldBoundaryShape3D_vef74")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Floor"]
+mesh = SubResource("PlaneMesh_vef74")
+
+[node name="Barrier" type="Node3D" parent="Game"]
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Game/Barrier"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Barrier/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 25, 0)
+shape = SubResource("BoxShape3D_vef74")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="Game/Barrier"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Barrier/StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 25, 0)
+shape = SubResource("BoxShape3D_vef74")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="Game/Barrier"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Barrier/StaticBody3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 25, 0)
+shape = SubResource("BoxShape3D_vef74")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="Game/Barrier"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Barrier/StaticBody3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 25, 0)
+shape = SubResource("BoxShape3D_vef74")
+
+[node name="Column" parent="Game" instance=ExtResource("11_he4cy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 7)
+
+[node name="Column5" parent="Game" instance=ExtResource("11_he4cy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+
+[node name="Column6" parent="Game" instance=ExtResource("11_he4cy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+
+[node name="Column2" parent="Game" instance=ExtResource("11_he4cy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 7)
+
+[node name="Column3" parent="Game" instance=ExtResource("11_he4cy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
+
+[node name="Column4" parent="Game" instance=ExtResource("11_he4cy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Game"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.9, 0)
+mesh = SubResource("BoxMesh_mfdv2")
+skeleton = NodePath("")
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="Game"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3000002, 0)
+visible = false
+size = Vector3(53, 10, 57)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.75628763, 0.11782194, 0.6435426, 0, 0.98365015, -0.18009, -0.65423924, 0.13619983, 0.7439225, 1.0498543, 0.71698517, 22.501259)
+fov = 70.0
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="VBoxContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -570.0
+offset_top = -192.5
+offset_right = -216.0
+offset_bottom = 192.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 100
+
+[node name="Logo" type="TextureRect" parent="Menu/Menu"]
+custom_minimum_size = Vector2(348, 145)
+layout_mode = 2
+texture = ExtResource("13_4oldi")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Button" type="Button" parent="Menu/Menu"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("14_73xsm")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_73xsm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_21mov")
+theme_override_styles/hover = SubResource("StyleBoxFlat_21mov")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_21mov")
+theme_override_styles/focus = SubResource("StyleBoxFlat_73xsm")
+text = "PLAY"
+
+[node name="PanelContainer" type="PanelContainer" parent="Menu/Menu"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_648uh")
+
+[node name="Label" type="Label" parent="Menu/Menu/PanelContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("14_73xsm")
+text = "personAl best: "
+horizontal_alignment = 1
+uppercase = true
+
+[node name="PanelContainer" type="PanelContainer" parent="Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -591.0
+offset_top = 132.0
+offset_right = -222.0
+offset_bottom = 614.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ados7")
+
+[connection signal="timeout" from="Game/EnemyTimer" to="Game" method="_on_enemy_timer_timeout"]
+[connection signal="timeout" from="Game/JunkTimer" to="Game" method="_on_test_timer_timeout"]
+[connection signal="timeout" from="Game/DepositOpenTime" to="Game" method="_on_deposit_open_time_timeout"]
+[connection signal="timeout" from="Game/DepositClosedTime" to="Game" method="_on_deposit_closed_time_timeout"]
+[connection signal="pressed" from="Menu/Menu/Button" to="." method="_on_button_pressed"]

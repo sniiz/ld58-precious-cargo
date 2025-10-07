@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var damage := 35.0
+@export var damage := 30.0
 @export var travel_speed := 25.0
 
 @export var max_lifetime := 3.0

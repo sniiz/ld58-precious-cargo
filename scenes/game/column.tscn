@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://dd5odsiforht1"]
+
+[ext_resource type="Texture2D" uid="uid://chi2h3q6sft7e" path="res://textures/3d/texture_05.png" id="1_2jttw"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_odgjo"]
+height = 6.0
+radius = 0.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_odgjo"]
+albedo_texture = ExtResource("1_2jttw")
+texture_filter = 4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2jttw"]
+lightmap_size_hint = Vector2i(25, 41)
+material = SubResource("StandardMaterial3D_odgjo")
+add_uv2 = true
+top_radius = 0.75
+bottom_radius = 0.75
+height = 6.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2jttw"]
+albedo_texture = ExtResource("1_2jttw")
+texture_filter = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_odgjo"]
+material = SubResource("StandardMaterial3D_2jttw")
+size = Vector3(1.8, 0.4, 1.8)
+
+[node name="Column" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+shape = SubResource("CylinderShape3D_odgjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+mesh = SubResource("CylinderMesh_2jttw")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2000003, 0)
+mesh = SubResource("BoxMesh_odgjo")

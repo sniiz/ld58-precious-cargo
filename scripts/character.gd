@@ -11,6 +11,7 @@ extends CharacterBody3D
 
 @export var max_health := 100.0
 @export var health := max_health
+var display_health := max_health
 
 @export var speed_mod := 0.0
 @export var accel_mod := 0.0
@@ -35,17 +36,23 @@ extends CharacterBody3D
 @onready var junk_anchor: Marker3D = $Head/CamContainer/Camera3D/Arm/Junk
 @onready var arm_flash_anim: AnimationPlayer = $ArmFlashAnimator
 @onready var hand_animator: AnimationPlayer = $HandAnimator
-@onready var transition_animator: AnimationPlayer = $CanvasLayer/TransitionAnimator
 @onready var money_container: PanelContainer = $CanvasLayer/Control/Money
 @onready var money_label: Label = $CanvasLayer/Control/Money/MarginContainer/Label
 @onready var money_animator: AnimationPlayer = $CanvasLayer/Control/Money/MarginContainer/MoneyAnimator
-
+@onready var health_progress: TextureProgressBar = $CanvasLayer/Control2/TextureProgressBar
+@onready var pts_progress: TextureProgressBar = $CanvasLayer/Control/TextureProgressBar
+@onready var deposit_progress: TextureProgressBar = $CanvasLayer/Control/TextureProgressBar2
+@onready var deposit_progress_label: Label = $CanvasLayer/Control/Money2/MarginContainer/Label
 
 @export var carried_junk : Array[RigidBody3D]
 @export var carried_junk_offsets : Array[Vector3]
 @export var carried_junk_spin : Array[float]
 
 @export var cash := 0
+@export var actual_cash := 0
+@export var add_speed := 10.0
+
+@export var deposit_progress_sec := 0.0
 
 var knockback_strength := 2.0
 
@@ -60,8 +67,12 @@ var headbob_enabled := true
 var jump_anim_enabled := true
 
 var targeted_node : Node3D
-
 var junk_offset : Vector2
+
+@export var level := 0
+@onready var next_required_points := calculate_required_points(0)
+var level_progress := 0
+var display_level_progress := 0
 
 @export var throw_cooldown_frames := 18
 var throw_cooldown_counter := throw_cooldown_frames
@@ -73,6 +84,14 @@ func _ready() -> void:
 	mouse_sensitivity = config.get_value("conf", "mouse_sensitivity", 0.08)
 	headbob_enabled = config.get_value("conf", "headbob", true)
 	jump_anim_enabled = config.get_value("conf", "jump_anim", true)
+	start_deposit(6.0, true)
+
+func start_deposit(wait_time: float, is_closed: bool) -> void:
+	deposit_progress_sec = 0.0
+	deposit_progress_label.text = "CLOSED" if is_closed else "OPEN"
+	deposit_progress.max_value = wait_time
+	deposit_progress.tint_progress = Color("be3024") if is_closed else Color("286ded")
+	deposit_progress_label.modulate = Color("be3024") if is_closed else Color("286ded")
 
 func _handle_head_rotation() -> void:
 	head.rotation_degrees.y -= mouse_input.x * mouse_sensitivity
@@ -83,10 +102,39 @@ func _handle_head_rotation() -> void:
 	mouse_input = Vector2.ZERO
 	head.rotation.x = clamp(head.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
+func humanize_number(number : String) -> String:
+	var to_return : String
+	var decimals : String
+	if "." in number:
+		decimals = "." + number.split(".", false, 0)[1]
+	if len(number.replace(decimals, "")) < 4:
+		return number
+	else:
+		var i : int = 0
+		for item in number.replace(decimals, "").reverse():
+			if i == 3:
+				item += ","
+				i = 0
+			to_return = item + to_return
+			i += 1
+		return to_return + decimals
+
 func add_money(money : int) -> void:
 	cash += money
-	money_label.text = "$ %s" % cash
 	money_animator.play("add")
+
+	level_progress += money
+	if level_progress >= next_required_points:
+		level += 1
+		level_progress = 0
+		next_required_points = calculate_required_points(level)
+		pts_progress.max_value = next_required_points
+		await get_tree().create_timer(0.3).timeout
+		get_parent().handle_upgrade(level)
+
+@warning_ignore("shadowed_variable")
+func calculate_required_points(level: int) -> int:
+	return floor(110 * pow(1.45, level))
 
 func _handle_movement(delta: float, input_dir: Vector2) -> void:
 	var rotated_direction := input_dir.rotated(-head.rotation.y)
@@ -135,9 +183,6 @@ func _unhandled_input(event : InputEvent) -> void:
 		mouse_input.x += event.relative.x
 		mouse_input.y += event.relative.y
 
-func _process(_delta: float) -> void:
-	$CanvasLayer/Label.text = "%s" % Performance.get_monitor(Performance.TIME_FPS)
-
 func carry_junk(junk_node: RigidBody3D) -> void:
 	if len(carried_junk) >= 10:
 		arm_flash_anim.play("no_space")
@@ -184,10 +229,17 @@ func on_damage(damage: float) -> void:
 	health -= damage
 	arm_flash_anim.stop()
 	arm_flash_anim.play("hurt")
-	var boss := get_tree().get_first_node_in_group("dialog")
-	if !boss.is_revealed: boss.say("i am placing blocks and shit cuz i am in fucking minecraft")
-	if health <= 0.0:
-		transition_animator.play("ttb")
+	health_progress.max_value = max_health
+	if health <= 0:
+		var config := ConfigFile.new()
+		var _error := config.load("user://pref.cfg")
+		var new_best : int = max(config.get_value("data", "high_score", 0), cash)
+		config.set_value("data", "high_score", new_best)
+		config.save("user://pref.cfg")
+		get_parent().transition()
+
+func heal(damage: float) -> void:
+	health += damage
 
 func _handle_raycast() -> void:
 	if raycast.is_colliding():
@@ -199,8 +251,25 @@ func _handle_raycast() -> void:
 			if targeted_node.has_signal("player_untarget"): targeted_node.emit_signal("player_untarget")
 			targeted_node = null
 
-
 func _physics_process(delta: float) -> void:
+	deposit_progress_sec += delta
+	deposit_progress.value = deposit_progress_sec
+
+	if actual_cash < cash:
+		actual_cash = ceil(lerp(actual_cash, cash, delta * add_speed))
+		money_label.text = humanize_number(str(actual_cash))
+
+	if display_health != health:
+		display_health = round(lerp(display_health, health, delta * 15.0))
+		health_progress.value = display_health
+		health_progress.max_value = max_health
+
+	if level_progress == 0:
+		display_level_progress = 0
+		pts_progress.value = display_level_progress
+	elif display_level_progress != level_progress:
+		display_level_progress = ceil(lerp(display_level_progress, level_progress, delta * 15.0))
+		pts_progress.value = display_level_progress
 
 	if not is_on_floor() and gravity:
 		velocity.y -= gravity * delta * 1.2
@@ -222,13 +291,13 @@ func _physics_process(delta: float) -> void:
 	if Engine.get_physics_frames() % 2: _handle_raycast()
 
 	if targeted_node and Input.is_action_just_pressed("deposit") and targeted_node.is_in_group("deposit"):
-		targeted_node.deposit(carried_junk, self)
-		for node in junk_anchor.get_children():
-			node.queue_free()
-		speed_mod = 0.0
-		carried_junk = []
-		carried_junk_spin = []
-		carried_junk_offsets = []
+		if targeted_node.deposit(carried_junk, self):
+			for node in junk_anchor.get_children():
+				node.queue_free()
+			speed_mod = 0.0
+			carried_junk = []
+			carried_junk_spin = []
+			carried_junk_offsets = []
 
 	if !is_on_floor():
 		air_time += delta

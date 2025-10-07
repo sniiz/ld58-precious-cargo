@@ -28,7 +28,8 @@ func throw(facing_rotation : Vector3, velocity : Vector3):
 	var throw_direction = Vector2.UP.rotated(-facing_rotation.y)
 	#throw_direction = Vector3(throw_direction.x, 0.0, throw_direction.y)
 	throw_direction = Vector3(throw_direction.x, facing_rotation.x + 0.05, throw_direction.y)
-	var throw_velocity : Vector3 = throw_direction.normalized() * throw_force
+	#var throw_velocity : Vector3 = throw_direction.normalized() * throw_force
+	var throw_velocity : Vector3 = throw_direction.normalized() * get_parent().throw_speed
 	#throw_velocity.y = 0.0
 	var projected_velocity : Vector3 = throw_direction.normalized().dot(velocity) * throw_direction.normalized()
 	linear_velocity = projected_velocity + throw_velocity
@@ -59,6 +60,7 @@ func _on_hit_detected(area: Area3D) -> void:
 		mesh.visible = false
 		particles.emitting = true
 
+
 func _on_particles_finished() -> void:
 	queue_free()
 
@@ -74,3 +76,5 @@ func _on_hit_detector_body_detected(body: Node3D) -> void:
 		possible_target.on_damage(damage)
 		mesh.visible = false
 		particles.emitting = true
+	if "fake_on_damage" in body and damage > 40.0:
+		body.fake_on_damage()

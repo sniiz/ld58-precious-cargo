@@ -1,0 +1,233 @@
+[gd_scene load_steps=7 format=3 uid="uid://bsp3cg8mr0pu1"]
+
+[ext_resource type="Script" uid="uid://dgikmwnij4c6j" path="res://scripts/upgrade_manager.gd" id="1_0e6ea"]
+[ext_resource type="PackedScene" uid="uid://douauro5v5r7i" path="res://scenes/ui/upgrade_card.tscn" id="2_pb0oq"]
+[ext_resource type="FontFile" uid="uid://cibhogromavd7" path="res://fonts/ShifterSans-Regular.otf" id="2_toaxo"]
+
+[sub_resource type="Animation" id="Animation_dx7in"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.11353335, 0.0806, 0.13, 0.8352941)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["select bonus"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Label:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, 32)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("VBoxContainer:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(120, 221)]
+}
+
+[sub_resource type="Animation" id="Animation_pb0oq"]
+resource_name = "reveal"
+length = 1.2666701
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(0.11353335, 0.0806, 0.13, 0), Color(0.11353335, 0.0806, 0.13, 0.8352941)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.76666665, 0.79999995),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["level up", "level up", "select upgrADE"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.7333333, 1.1, 1.2333333),
+"transitions": PackedFloat32Array(1, -2, 1, 1),
+"update": 0,
+"values": [Vector2(653.5, 425.5), Vector2(653.5, 425.5), Vector2(31, 34), Vector2(31, 34)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Label:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.13333334),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("VBoxContainer:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.9333333, 1.2666667),
+"transitions": PackedFloat32Array(0.4, 1),
+"update": 0,
+"values": [Vector2(-500, 221), Vector2(120, 221)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dx7in"]
+_data = {
+&"RESET": SubResource("Animation_dx7in"),
+&"reveal": SubResource("Animation_pb0oq")
+}
+
+[node name="UpgradeManager" type="Control"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0e6ea")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0.11353335, 0.0806, 0.13, 0.8352941)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 120.0
+offset_top = -229.0
+offset_right = 570.00024
+offset_bottom = 229.0
+grow_vertical = 2
+
+[node name="UpgradeCard" parent="VBoxContainer" instance=ExtResource("2_pb0oq")]
+layout_mode = 2
+
+[node name="UpgradeCard2" parent="VBoxContainer" instance=ExtResource("2_pb0oq")]
+layout_mode = 2
+
+[node name="UpgradeCard3" parent="VBoxContainer" instance=ExtResource("2_pb0oq")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -768.0
+offset_top = -418.0
+offset_right = -429.99966
+offset_bottom = -368.99988
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(146, 24)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_toaxo")
+theme_override_font_sizes/font_size = 48
+text = "select bonus"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dx7in")
+}
+
+[connection signal="clicked" from="VBoxContainer/UpgradeCard" to="." method="_on_upgrade_card_clicked"]
+[connection signal="clicked" from="VBoxContainer/UpgradeCard2" to="." method="_on_upgrade_card_2_clicked"]
+[connection signal="clicked" from="VBoxContainer/UpgradeCard3" to="." method="_on_upgrade_card_3_clicked"]

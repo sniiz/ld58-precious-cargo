@@ -6,14 +6,13 @@ extends Node3D
 		$MeshInstance3D.scale = value
 		spawn_area = value
 @export var junk : Array[PackedScene]
-@onready var junk_cap : int = get_parent().junk_cap
 
 func _ready() -> void:
 	if !Engine.is_editor_hint():
 		$MeshInstance3D.visible = false
 
 func spawn(count : int) -> void:
-	if get_tree().get_node_count_in_group("junk") >= junk_cap: return
+	if get_tree().get_node_count_in_group("junk") >= get_parent().junk_cap: return
 	for _i in count:
 		var prefab : PackedScene = junk.pick_random()
 		var junk_instance := prefab.instantiate()
