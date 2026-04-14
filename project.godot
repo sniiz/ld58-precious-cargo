@@ -14,7 +14,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="PRECIOUS CARGO (Ludum Dare 58 build)"
+config/name="PRECIOUS CARGO"
 config/version="1.0.1"
 config/tags=PackedStringArray("jam_game")
 run/main_scene="uid://bios7hyy37dgr"
