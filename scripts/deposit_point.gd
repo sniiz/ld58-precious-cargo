@@ -14,6 +14,8 @@ signal player_untarget
 			animation_player.play("enable")
 			label.modulate = Color("ffffff")
 			label.text = "/F/ Deposit Items"
+			if label.visible:
+				bounce_animation.play("hover")
 		else:
 			label.text = "deposit closed"
 			label.modulate = Color("be3024")
@@ -22,13 +24,15 @@ signal player_untarget
 
 func _on_player_target() -> void:
 	label.visible = true
+	if !is_closed:
+		bounce_animation.play("hover")
 
 func _on_player_untarget() -> void:
 	label.visible = false
 
 func fake_on_damage() -> void:
 	var boss := get_tree().get_first_node_in_group("dialog")
-	if !boss.is_revealed: boss.say("refrain from treating the deposit point so carelessly.")
+	if !boss.is_revealed: boss.say("refrain from treating the\ndeposit point so carelessly.")
 
 func deposit(junk: Array[RigidBody3D], player: Node3D) -> bool:
 	if is_closed: return false

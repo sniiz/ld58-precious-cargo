@@ -15,6 +15,7 @@ extends Node3D
 @export var throw_speed := 30.0
 @export var enemy_payout_mult := 1.0
 @export var loot_payout_mult := 1.0
+@export var is_paid_overtime := false
 
 @onready var deposit_point: StaticBody3D = $DepositPoint
 @onready var deposit_closed_time: Timer = $DepositClosedTime
@@ -46,7 +47,7 @@ func _on_deposit_closed_time_timeout() -> void:
 func handle_upgrade(level: int) -> void:
 	if !active: return
 	$CanvasLayer/UpgradeManager.reveal()
-	enemy_cap = 2 + floor(level / 2)
+	enemy_cap = 2 + floor(level / 5)
 
 func _on_enemy_timer_timeout() -> void:
 	if !active: return
@@ -56,3 +57,7 @@ func transition() -> void:
 	$CanvasLayer/TransitionAnimator.play("ttb", -1, 0.4)
 	await get_tree().create_timer(1.5).timeout
 	get_tree().change_scene_to_file("res://scenes/game/main_menu.tscn")
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("fullscreen"):
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN if DisplayServer.window_get_mode(0) == DisplayServer.WINDOW_MODE_WINDOWED else DisplayServer.WINDOW_MODE_WINDOWED)

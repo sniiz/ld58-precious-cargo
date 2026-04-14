@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://bcb352mbjmj7u"]
+[gd_scene format=4 uid="uid://bcb352mbjmj7u"]
 
 [ext_resource type="Script" uid="uid://2rhy541xm5hc" path="res://scripts/carryable.gd" id="1_7tj1x"]
 [ext_resource type="Texture2D" uid="uid://c4didqen4ohki" path="res://textures/3d/jim_albedo.png" id="2_2h3kv"]
@@ -131,6 +131,20 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_io2xs")
 
+[sub_resource type="Gradient" id="Gradient_kvs5n"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.44773707, 0.66756463, 0.78784406, 0.8529095, 1)
+colors = PackedColorArray(0.18039216, 1, 0.6313726, 1, 0.15686275, 0.23529412, 0.38431373, 1, 0.15686275, 0.23529412, 0.38431373, 1, 0.07058824, 0.15686275, 0.19607843, 1, 0.1882353, 0.11764706, 0.23529412, 1, 0, 0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_xwooo"]
+offsets = PackedFloat32Array(0, 0.44773707, 0.66756463, 0.7365302, 0.8529095, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.4627451, 0.28235295, 0.4627451, 1, 0.24883157, 0.11377921, 0.21208702, 1, 0.2185334, 0.115713134, 0.22369057, 1, 0.1882353, 0.11764706, 0.23529412, 1, 0, 0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_nlxh8"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.44773707, 0.66756463, 0.7365302, 0.8529095, 1)
+colors = PackedColorArray(0.74509805, 0.1882353, 0.14117648, 1, 0.5568628, 0.09411765, 0.09411765, 1, 0.24883157, 0.11377921, 0.21208702, 1, 0.2185334, 0.115713134, 0.22369057, 1, 0.1882353, 0.11764706, 0.23529412, 1, 0, 0, 0, 0)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_7qdle"]
 size = Vector3(0.5, 0.5, 0.5)
 
@@ -160,46 +174,48 @@ size = Vector2(0.1, 0.1)
 offsets = PackedFloat32Array(0, 0.44773707, 0.66756463, 0.7365302, 0.8529095, 1)
 colors = PackedColorArray(0.74509805, 0.1882353, 0.14117648, 1, 0.5568628, 0.09411765, 0.09411765, 1, 0.24883157, 0.11377921, 0.21208702, 1, 0.2185334, 0.115713134, 0.22369057, 1, 0.1882353, 0.11764706, 0.23529412, 1, 0, 0, 0, 0)
 
-[node name="Carryable" type="RigidBody3D" groups=["junk"]]
+[node name="Carryable" type="RigidBody3D" unique_id=1923053232 groups=["junk"]]
 process_mode = 1
 collision_layer = 4
 collision_mask = 37
 mass = 3.0
 physics_material_override = SubResource("PhysicsMaterial_80js3")
+continuous_cd = true
 script = ExtResource("1_7tj1x")
 possible_meshes = Array[Mesh]([SubResource("ArrayMesh_80js3"), SubResource("ArrayMesh_kvs5n"), SubResource("ArrayMesh_xwooo")])
 possible_mesh_scales = Array[float]([0.2, 0.2, 0.18])
 possible_mesh_offsets = Array[Vector3]([Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -0.1, 0)])
+possible_mesh_particle_colors = Array[Gradient]([SubResource("Gradient_kvs5n"), SubResource("Gradient_xwooo"), SubResource("Gradient_nlxh8")])
 
-[node name="PhysicsCollider" type="CollisionShape3D" parent="."]
+[node name="PhysicsCollider" type="CollisionShape3D" parent="." unique_id=1565718286]
 shape = SubResource("BoxShape3D_7qdle")
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=698484795]
 layers = 3
 mesh = SubResource("BoxMesh_7tj1x")
 
-[node name="PlayerDetectorArea" type="Area3D" parent="."]
+[node name="PlayerDetectorArea" type="Area3D" parent="." unique_id=1365015800]
 collision_layer = 0
 collision_mask = 2
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectorArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectorArea" unique_id=1730826264]
 shape = SubResource("SphereShape3D_7qdle")
 
-[node name="HitDetectorArea" type="Area3D" parent="."]
+[node name="HitDetectorArea" type="Area3D" parent="." unique_id=1736374930]
 collision_layer = 0
 collision_mask = 48
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitDetectorArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitDetectorArea" unique_id=335568412]
 shape = SubResource("SphereShape3D_oufto")
 
-[node name="ThrowableTimer" type="Timer" parent="."]
+[node name="ThrowableTimer" type="Timer" parent="." unique_id=1663540345]
 process_callback = 0
 wait_time = 0.3
 one_shot = true
 
-[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+[node name="CPUParticles3D" type="CPUParticles3D" parent="." unique_id=2122871467]
 emitting = false
 amount = 16
 lifetime = 0.5

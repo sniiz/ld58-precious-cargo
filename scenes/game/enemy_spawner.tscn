@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://g58aar3pkban"]
+[gd_scene format=3 uid="uid://g58aar3pkban"]
 
 [ext_resource type="Script" uid="uid://xeygf45ipmja" path="res://scripts/enemy_spawner.gd" id="1_kaeo0"]
 [ext_resource type="PackedScene" uid="uid://caqopaci4m5hc" path="res://scenes/game/shooting_enemy.tscn" id="2_nfhys"]
@@ -13,9 +13,9 @@ distance_fade_max_distance = 0.0
 [sub_resource type="BoxMesh" id="BoxMesh_nfhys"]
 material = SubResource("StandardMaterial3D_kaeo0")
 
-[node name="EnemySpawner" type="Node3D" groups=["enemy_spawner"]]
+[node name="EnemySpawner" type="Node3D" unique_id=639293884 groups=["enemy_spawner"]]
 script = ExtResource("1_kaeo0")
 enemies = Array[PackedScene]([ExtResource("2_nfhys")])
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1503910095]
 mesh = SubResource("BoxMesh_nfhys")

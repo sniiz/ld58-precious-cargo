@@ -8,7 +8,7 @@ uniform float fresnel_intensity : hint_range(0.0, 10.0);
 uniform float fresnel_power : hint_range(1.0, 10.0);
 
 uniform vec3 rim_color : source_color;
-uniform float rim_size : hint_range(0.0, 0.8);
+uniform float rim_size : hint_range(0.0, 1.0);
 uniform float rim_intensity : hint_range(0.0, 1.0);
 uniform float rim_start : hint_range(-1.0, 1.0);
 uniform float rim_end : hint_range(-1.0, 1.0);

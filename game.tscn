@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cefwpks6rkoic"]
+[gd_scene format=3 uid="uid://cefwpks6rkoic"]
 
 [ext_resource type="Texture2D" uid="uid://chi2h3q6sft7e" path="res://textures/3d/texture_05.png" id="1_80nbo"]
 [ext_resource type="Shader" uid="uid://b1dix5cgk1h6h" path="res://shaders/sky.gdshader" id="1_feb5d"]
@@ -42,7 +42,9 @@ tonemap_mode = 3
 tonemap_exposure = 2.2
 tonemap_white = 3.0
 glow_enabled = true
+glow_intensity = 0.6
 glow_bloom = 0.08
+glow_hdr_threshold = 0.8
 adjustment_enabled = true
 adjustment_saturation = 1.1
 
@@ -163,52 +165,60 @@ texture_filter = 4
 material = SubResource("StandardMaterial3D_mfdv2")
 size = Vector3(15.8, 1, 15.8)
 
-[node name="Game" type="Node3D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iotsf"]
+shading_mode = 0
+albedo_color = Color(0.8593652, 0.53980464, 0.8593652, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lc2xo"]
+material = SubResource("StandardMaterial3D_iotsf")
+size = Vector3(1, 0.2, 1)
+
+[node name="Game" type="Node3D" unique_id=794229392]
 process_mode = 3
 script = ExtResource("1_ryrav")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=34933704]
 environment = SubResource("Environment_feb5d")
 
-[node name="Character" parent="." instance=ExtResource("2_e2o6t")]
+[node name="Character" parent="." unique_id=700799019 instance=ExtResource("2_e2o6t")]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=58825224]
 transform = Transform3D(0.88294744, -0.37245682, 0.28579623, 0, 0.6087614, 0.79335344, -0.4694715, -0.7004894, 0.5375045, 0, 0, 0)
 light_color = Color(0.54, 0.44820002, 0.54, 1)
 light_energy = 1.5
 light_bake_mode = 1
 directional_shadow_blend_splits = true
 
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1153170766]
 transform = Transform3D(-0.88294774, 0.37245673, -0.28579628, -2.5479482e-08, 0.6087614, 0.79335344, 0.4694716, 0.7004894, -0.5375046, 0, 0, 0)
 light_color = Color(0.10980392, 0.078431375, 0.1254902, 1)
 light_energy = 1.8
 light_bake_mode = 0
 
-[node name="JunkSpawner" parent="." instance=ExtResource("5_7jktm")]
+[node name="JunkSpawner" parent="." unique_id=1432745801 instance=ExtResource("5_7jktm")]
 process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -6)
 visible = false
 spawn_area = Vector3(40, 1, 35)
 junk = Array[PackedScene]([ExtResource("4_fc0e3")])
 
-[node name="EnemyTimer" type="Timer" parent="."]
+[node name="EnemyTimer" type="Timer" parent="." unique_id=588291846]
 wait_time = 5.0
 autostart = true
 
-[node name="JunkTimer" type="Timer" parent="."]
+[node name="JunkTimer" type="Timer" parent="." unique_id=647498364]
 wait_time = 5.0
 one_shot = true
 autostart = true
 
-[node name="DepositPoint" parent="." instance=ExtResource("7_eow3j")]
+[node name="DepositPoint" parent="." unique_id=993824228 instance=ExtResource("7_eow3j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5051518, 0, 22.526966)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2045140313]
 
-[node name="DialogManager" parent="CanvasLayer" instance=ExtResource("9_vef74")]
+[node name="DialogManager" parent="CanvasLayer" unique_id=1074511906 instance=ExtResource("9_vef74")]
 
-[node name="Transition" type="ColorRect" parent="CanvasLayer"]
+[node name="Transition" type="ColorRect" parent="CanvasLayer" unique_id=109450636]
 visible = false
 self_modulate = Color(0, 0, 0, 1)
 z_index = 10
@@ -223,96 +233,116 @@ grow_vertical = 2
 pivot_offset = Vector2(800, 450)
 mouse_filter = 2
 
-[node name="TransitionAnimator" type="AnimationPlayer" parent="CanvasLayer"]
+[node name="TransitionAnimator" type="AnimationPlayer" parent="CanvasLayer" unique_id=287778738]
 root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_jf311")
-}
+libraries/ = SubResource("AnimationLibrary_jf311")
 
-[node name="UpgradeManager" parent="CanvasLayer" instance=ExtResource("9_iotsf")]
+[node name="UpgradeManager" parent="CanvasLayer" unique_id=1338476292 instance=ExtResource("9_iotsf")]
 
-[node name="EnemySpawner" parent="." instance=ExtResource("9_hve3p")]
+[node name="EnemySpawner" parent="." unique_id=480722305 instance=ExtResource("9_hve3p")]
 process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.450581e-09, 0)
 visible = false
 spawn_area = Vector3(50, 0.01, 50)
 
-[node name="DepositOpenTime" type="Timer" parent="."]
+[node name="DepositOpenTime" type="Timer" parent="." unique_id=1459941421]
 process_mode = 1
 process_callback = 0
 wait_time = 8.0
 one_shot = true
 
-[node name="DepositClosedTime" type="Timer" parent="."]
+[node name="DepositClosedTime" type="Timer" parent="." unique_id=1192367784]
 process_mode = 1
 process_callback = 0
 wait_time = 4.0
 one_shot = true
 autostart = true
 
-[node name="Floor" type="StaticBody3D" parent="."]
+[node name="Floor" type="StaticBody3D" parent="." unique_id=576929703]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1680985577]
 shape = SubResource("WorldBoundaryShape3D_vef74")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=106595088]
 mesh = SubResource("PlaneMesh_vef74")
 
-[node name="Barrier" type="Node3D" parent="."]
+[node name="Barrier" type="Node3D" parent="." unique_id=85761510]
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="Barrier"]
+[node name="StaticBody3D2" type="StaticBody3D" parent="Barrier" unique_id=107042587]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier/StaticBody3D2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier/StaticBody3D2" unique_id=1986403114]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 25, 0)
 shape = SubResource("BoxShape3D_vef74")
 
-[node name="StaticBody3D3" type="StaticBody3D" parent="Barrier"]
+[node name="StaticBody3D3" type="StaticBody3D" parent="Barrier" unique_id=1193862772]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier/StaticBody3D3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier/StaticBody3D3" unique_id=1084154671]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 25, 0)
 shape = SubResource("BoxShape3D_vef74")
 
-[node name="StaticBody3D4" type="StaticBody3D" parent="Barrier"]
+[node name="StaticBody3D4" type="StaticBody3D" parent="Barrier" unique_id=2122175979]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier/StaticBody3D4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier/StaticBody3D4" unique_id=971606713]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 25, 0)
 shape = SubResource("BoxShape3D_vef74")
 
-[node name="StaticBody3D5" type="StaticBody3D" parent="Barrier"]
+[node name="StaticBody3D5" type="StaticBody3D" parent="Barrier" unique_id=1847834964]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier/StaticBody3D5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier/StaticBody3D5" unique_id=532599678]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 25, 0)
 shape = SubResource("BoxShape3D_vef74")
 
-[node name="Column" parent="." instance=ExtResource("11_mfdv2")]
+[node name="Column" parent="." unique_id=244911207 instance=ExtResource("11_mfdv2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 7)
 
-[node name="Column5" parent="." instance=ExtResource("11_mfdv2")]
+[node name="Column5" parent="." unique_id=1167164827 instance=ExtResource("11_mfdv2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
 
-[node name="Column6" parent="." instance=ExtResource("11_mfdv2")]
+[node name="Column6" parent="." unique_id=1350105574 instance=ExtResource("11_mfdv2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
 
-[node name="Column2" parent="." instance=ExtResource("11_mfdv2")]
+[node name="Column2" parent="." unique_id=507774680 instance=ExtResource("11_mfdv2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 7)
 
-[node name="Column3" parent="." instance=ExtResource("11_mfdv2")]
+[node name="Column3" parent="." unique_id=636787602 instance=ExtResource("11_mfdv2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
 
-[node name="Column4" parent="." instance=ExtResource("11_mfdv2")]
+[node name="Column4" parent="." unique_id=1377910405 instance=ExtResource("11_mfdv2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=659612990]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.9, 0)
 mesh = SubResource("BoxMesh_mfdv2")
 skeleton = NodePath("")
 
-[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+[node name="ReflectionProbe" type="ReflectionProbe" parent="." unique_id=1927997059]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3000002, 0)
 visible = false
 size = Vector3(53, 10, 57)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1463722631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 6.2999997, 0)
+mesh = SubResource("BoxMesh_lc2xo")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D" unique_id=29348094]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+light_color = Color(0.8460169, 0.5315286, 0.8460169, 1)
+light_energy = 10.0
+omni_range = 13.0
+omni_attenuation = 2.0
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1776749409]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 6.2999997, 0)
+mesh = SubResource("BoxMesh_lc2xo")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D3" unique_id=1224793723]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+light_color = Color(0.8460169, 0.5315286, 0.8460169, 1)
+light_energy = 10.0
+omni_range = 13.0
+omni_attenuation = 2.0
 
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
 [connection signal="timeout" from="JunkTimer" to="." method="_on_test_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://caqopaci4m5hc"]
+[gd_scene format=3 uid="uid://caqopaci4m5hc"]
 
 [ext_resource type="Script" uid="uid://13nrec8l5nhr" path="res://scripts/shooting_enemy.gd" id="1_ejqf8"]
 [ext_resource type="Texture2D" uid="uid://b51pu0yptf4eo" path="res://textures/2d/skellum.png" id="2_2866t"]
@@ -79,42 +79,40 @@ expand_margin_bottom = 1.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s0enc"]
 bg_color = Color(0.74509805, 0.1882353, 0.14117648, 1)
 
-[node name="ShootingEnemy" type="CharacterBody3D" groups=["enemy"]]
+[node name="ShootingEnemy" type="CharacterBody3D" unique_id=669249757 groups=["enemy"]]
 process_mode = 1
 collision_layer = 16
 collision_mask = 19
 script = ExtResource("1_ejqf8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1059913345]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CapsuleShape3D_ejqf8")
 
-[node name="Nozzle" type="Marker3D" parent="."]
+[node name="Nozzle" type="Marker3D" parent="." unique_id=1876197844]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -0.20000005)
 
-[node name="Hurtbox" type="Area3D" parent="."]
+[node name="Hurtbox" type="Area3D" parent="." unique_id=1865688343]
 collision_layer = 16
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=1950736577]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CapsuleShape3D_ejqf8")
 
-[node name="Sprite" type="AnimatedSprite3D" parent="."]
+[node name="Sprite" type="AnimatedSprite3D" parent="." unique_id=587207599]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
 billboard = 2
 shaded = true
+alpha_cut = 1
 texture_filter = 4
 sprite_frames = SubResource("SpriteFrames_bpm88")
-animation = &"attack"
 autoplay = "default"
 
-[node name="Hurt" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_dwpd0")
-}
+[node name="Hurt" type="AnimationPlayer" parent="." unique_id=460907275]
+libraries/ = SubResource("AnimationLibrary_dwpd0")
 
-[node name="Health" type="ProgressBar" parent="."]
+[node name="Health" type="ProgressBar" parent="." unique_id=510677968]
 visible = false
 offset_right = 48.0
 offset_bottom = 6.0

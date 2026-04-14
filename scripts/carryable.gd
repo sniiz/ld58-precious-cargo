@@ -11,6 +11,7 @@ extends RigidBody3D
 @export var possible_meshes : Array[Mesh]
 @export var possible_mesh_scales : Array[float]
 @export var possible_mesh_offsets : Array[Vector3]
+@export var possible_mesh_particle_colors : Array[Gradient]
 
 @onready var particles: CPUParticles3D = $CPUParticles3D
 @onready var mesh: MeshInstance3D = $Mesh
@@ -22,6 +23,7 @@ func _ready() -> void:
 	mini_mesh = possible_meshes[mesh_index]
 	mini_mesh_scale = possible_mesh_scales[mesh_index]
 	mini_mesh_offset = possible_mesh_offsets[mesh_index] * mini_mesh_scale
+	particles.color_ramp = possible_mesh_particle_colors[mesh_index]
 
 func throw(facing_rotation : Vector3, velocity : Vector3):
 	reset_physics_interpolation()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://dwlogv32l00yi"]
+[gd_scene format=4 uid="uid://dwlogv32l00yi"]
 
 [ext_resource type="Script" uid="uid://dlggo3og1tacs" path="res://scripts/character.gd" id="1_qhwh2"]
 [ext_resource type="AudioStream" uid="uid://cwej6we7dqdap" path="res://audio/sfx/footsteps/0.ogg" id="2_kvy25"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://rq6qvlhkneku" path="res://textures/2d/ui-box.png" id="13_syl27"]
 [ext_resource type="AudioStream" uid="uid://cvapocdg2ycm1" path="res://audio/sfx/coins.ogg" id="14_srql7"]
 [ext_resource type="Texture2D" uid="uid://do20yu462i7i4" path="res://textures/2d/Untitled-1.png" id="15_6i5sj"]
+[ext_resource type="FontFile" uid="uid://df68ky5i57bj7" path="res://fonts/Outfit-VariableFont_wght.ttf" id="16_pbpxc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c7aaw"]
 resource_name = "Material #46"
@@ -77,6 +78,7 @@ frequency = 0.002
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_syl27"]
 noise = SubResource("FastNoiseLite_jt4eu")
 color_ramp = SubResource("Gradient_1leso")
+seamless = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kvy25"]
 render_priority = 1
@@ -782,7 +784,14 @@ shader_parameter/effect_color = Color(0.2901961, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6i5sj"]
 
+[sub_resource type="FontVariation" id="FontVariation_tky42"]
+base_font = ExtResource("16_pbpxc")
+variation_opentype = {
+2003265652: 700
+}
+
 [sub_resource type="FontVariation" id="FontVariation_syl27"]
+fallbacks = Array[Font]([SubResource("FontVariation_tky42")])
 base_font = ExtResource("11_1leso")
 spacing_glyph = 1
 spacing_space = -5
@@ -1021,29 +1030,29 @@ _data = {
 base_font = ExtResource("11_1leso")
 spacing_glyph = 1
 
-[node name="Character" type="CharacterBody3D" groups=["player"]]
+[node name="Character" type="CharacterBody3D" unique_id=1454343846 groups=["player"]]
 process_mode = 1
 collision_layer = 2
 collision_mask = 49
 script = ExtResource("1_qhwh2")
 
-[node name="Head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="." unique_id=1724101992]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="CamContainer" type="Node3D" parent="Head"]
+[node name="CamContainer" type="Node3D" parent="Head" unique_id=701807829]
 
-[node name="Camera3D" type="Camera3D" parent="Head/CamContainer" groups=["camera"]]
+[node name="Camera3D" type="Camera3D" parent="Head/CamContainer" unique_id=852706205 groups=["camera"]]
 cull_mask = 1048573
-fov = 90.0
+fov = 95.0
 
-[node name="RayCast3D" type="RayCast3D" parent="Head/CamContainer/Camera3D"]
+[node name="RayCast3D" type="RayCast3D" parent="Head/CamContainer/Camera3D" unique_id=1506443646]
 target_position = Vector3(0, 0, -3)
 collision_mask = 64
 hit_from_inside = true
 
-[node name="Arm" type="Node3D" parent="Head/CamContainer/Camera3D"]
+[node name="Arm" type="Node3D" parent="Head/CamContainer/Camera3D" unique_id=116391173]
 
-[node name="Plane005" type="MeshInstance3D" parent="Head/CamContainer/Camera3D/Arm"]
+[node name="Plane005" type="MeshInstance3D" parent="Head/CamContainer/Camera3D/Arm" unique_id=1549224304]
 transform = Transform3D(0.0018175691, 0.0077848346, -0.0003045764, 0.007255647, -0.0015775141, 0.002977753, 0.0028376058, -0.0009527715, -0.007418908, 0.63743836, -0.45649612, -0.9479242)
 cast_shadow = 0
 gi_mode = 0
@@ -1051,13 +1060,13 @@ mesh = SubResource("ArrayMesh_kvy25")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_1leso")
 
-[node name="Junk" type="Marker3D" parent="Head/CamContainer/Camera3D/Arm"]
+[node name="Junk" type="Marker3D" parent="Head/CamContainer/Camera3D/Arm" unique_id=481163973]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6321655, -0.30000007, -0.8671484)
 
-[node name="Node3D" type="Node3D" parent="Head/CamContainer/Camera3D/Arm"]
+[node name="Node3D" type="Node3D" parent="Head/CamContainer/Camera3D/Arm" unique_id=250448141]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.24236664, -0.09301436, 0.08503319)
 
-[node name="Label3D" type="Label3D" parent="Head/CamContainer/Camera3D/Arm/Node3D"]
+[node name="Label3D" type="Label3D" parent="Head/CamContainer/Camera3D/Arm/Node3D" unique_id=484418086]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7037795, -0.19593751, -0.5)
 visible = false
 pixel_size = 0.001
@@ -1074,49 +1083,41 @@ font_size = 56
 outline_size = 8
 uppercase = true
 
-[node name="Whoosh" type="AudioStreamPlayer3D" parent="Head/CamContainer/Camera3D/Arm"]
+[node name="Whoosh" type="AudioStreamPlayer3D" parent="Head/CamContainer/Camera3D/Arm" unique_id=733101625]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.632, -0.29999995, -0.707)
 stream = SubResource("AudioStreamRandomizer_jf311")
 panning_strength = 0.2
 bus = &"Sfx"
 
-[node name="ThrowMarker" type="Marker3D" parent="Head"]
+[node name="ThrowMarker" type="Marker3D" parent="Head" unique_id=1768956710]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=383662276]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_jctcc")
 
-[node name="HeadAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_c0ynf")
-}
+[node name="HeadAnimation" type="AnimationPlayer" parent="." unique_id=1842838165]
+libraries/ = SubResource("AnimationLibrary_c0ynf")
 speed_scale = 2.0
 
-[node name="JumpAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_80gf1")
-}
+[node name="JumpAnimation" type="AnimationPlayer" parent="." unique_id=760879674]
+libraries/ = SubResource("AnimationLibrary_80gf1")
 
-[node name="HandAnimator" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_srql7")
-}
+[node name="HandAnimator" type="AnimationPlayer" parent="." unique_id=903123350]
+libraries/ = SubResource("AnimationLibrary_srql7")
 
-[node name="ArmFlashAnimator" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_jt4eu")
-}
+[node name="ArmFlashAnimator" type="AnimationPlayer" parent="." unique_id=1648256665]
+libraries/ = SubResource("AnimationLibrary_jt4eu")
 
-[node name="CollectDetector" type="Area3D" parent="."]
+[node name="CollectDetector" type="Area3D" parent="." unique_id=902281243]
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CollectDetector"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollectDetector" unique_id=1077911601]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_qhwh2")
 
-[node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
+[node name="Footsteps" type="AudioStreamPlayer3D" parent="." unique_id=227996730]
 stream = SubResource("AudioStreamRandomizer_tky42")
 attenuation_model = 3
 volume_db = -2.0
@@ -1124,9 +1125,9 @@ max_polyphony = 2
 panning_strength = 0.2
 bus = &"Sfx"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=800823572]
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" unique_id=1608491460]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1135,14 +1136,15 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Reticle" type="Control" parent="CanvasLayer/CenterContainer"]
+[node name="Reticle" type="Control" parent="CanvasLayer/CenterContainer" unique_id=2138183907]
 layout_mode = 2
 
-[node name="Line2D" type="Line2D" parent="CanvasLayer/CenterContainer/Reticle"]
+[node name="Line2D" type="Line2D" parent="CanvasLayer/CenterContainer/Reticle" unique_id=822630252]
 points = PackedVector2Array(0, 0, 3, 0)
 width = 3.0
 
-[node name="Label" type="Label" parent="CanvasLayer"]
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=418759268]
+visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 1, 1, 1)
@@ -1151,7 +1153,7 @@ theme_override_fonts/font = ExtResource("11_1leso")
 theme_override_font_sizes/font_size = 12
 text = "fps 144.0"
 
-[node name="VignettePostProcess" type="ColorRect" parent="CanvasLayer"]
+[node name="VignettePostProcess" type="ColorRect" parent="CanvasLayer" unique_id=566764168]
 visible = false
 texture_filter = 3
 material = SubResource("ShaderMaterial_syl27")
@@ -1162,20 +1164,20 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1318152738]
 texture_filter = 3
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -88.0
-offset_top = 56.0
-offset_right = -48.0
-offset_bottom = 96.0
+offset_left = -106.0
+offset_top = 72.0
+offset_right = -66.0
+offset_bottom = 112.0
 grow_horizontal = 0
 mouse_filter = 2
 
-[node name="Label" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="Label" type="PanelContainer" parent="CanvasLayer/Control" unique_id=513085589]
 layout_mode = 0
 offset_left = -52.0
 offset_top = -24.0
@@ -1184,7 +1186,7 @@ offset_bottom = 12.0
 pivot_offset = Vector2(70, 0)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6i5sj")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Label"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Label" unique_id=1285095068]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 texture = ExtResource("13_syl27")
@@ -1195,7 +1197,7 @@ patch_margin_bottom = 10
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Label"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Label" unique_id=413077831]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/margin_left = 10
@@ -1203,7 +1205,7 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/Label/MarginContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/Label/MarginContainer" unique_id=1295916813]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_colors/font_color = Color(0.18039215, 1, 0.6313726, 1)
@@ -1213,7 +1215,7 @@ text = "score "
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Money" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="Money" type="PanelContainer" parent="CanvasLayer/Control" unique_id=1685183668]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -1228,7 +1230,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_srql7")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Money"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Money" unique_id=119247511]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 texture = ExtResource("13_syl27")
@@ -1239,37 +1241,76 @@ patch_margin_bottom = 10
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Money"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Money" unique_id=277862177]
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/Money/MarginContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/Money/MarginContainer" unique_id=1487824800]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.18039215, 1, 0.6313726, 1)
+theme_override_colors/font_color = Color(0.18039216, 1, 0.6313726, 1)
 theme_override_fonts/font = SubResource("FontVariation_syl27")
 theme_override_font_sizes/font_size = 30
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="MoneyAnimator" type="AnimationPlayer" parent="CanvasLayer/Control/Money/MarginContainer"]
-libraries = {
-&"": SubResource("AnimationLibrary_pbpxc")
-}
+[node name="MoneyAnimator" type="AnimationPlayer" parent="CanvasLayer/Control/Money/MarginContainer" unique_id=845435829]
+libraries/ = SubResource("AnimationLibrary_pbpxc")
 
-[node name="MoneySound" type="AudioStreamPlayer" parent="CanvasLayer/Control/Money/MarginContainer"]
+[node name="MoneySound" type="AudioStreamPlayer" parent="CanvasLayer/Control/Money/MarginContainer" unique_id=642774065]
 bus = &"Sfx"
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control"]
+[node name="Control" type="Control" parent="CanvasLayer/Control/Money" unique_id=1320506558]
+layout_mode = 2
+
+[node name="Label3" type="PanelContainer" parent="CanvasLayer/Control/Money/Control" unique_id=39726455]
+layout_mode = 1
+offset_left = -57.0
+offset_top = 14.0
+offset_right = -9.0
+offset_bottom = 35.0
+pivot_offset = Vector2(70, 0)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6i5sj")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Money/Control/Label3" unique_id=1325398957]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+texture = ExtResource("13_syl27")
+patch_margin_left = 24
+patch_margin_top = 10
+patch_margin_right = 24
+patch_margin_bottom = 10
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Money/Control/Label3" unique_id=1293306627]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 2
+
+[node name="LevelLabel" type="Label" parent="CanvasLayer/Control/Money/Control/Label3/MarginContainer" unique_id=2065312580]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0.18039215, 1, 0.6313726, 1)
+theme_override_fonts/font = SubResource("FontVariation_syl27")
+theme_override_font_sizes/font_size = 14
+text = "lv    0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control" unique_id=38223824]
 layout_mode = 0
-offset_left = 24.999996
-offset_top = 42.902428
-offset_right = 93.902405
-offset_bottom = 62.902428
+offset_left = 28.0
+offset_top = 42.902466
+offset_right = 96.902405
+offset_bottom = 71.402466
 rotation = -1.5707964
 nine_patch_stretch = true
 stretch_margin_left = 24
@@ -1281,7 +1322,7 @@ texture_progress = ExtResource("13_syl27")
 tint_under = Color(0, 0, 0, 1)
 tint_progress = Color(0.18039216, 1, 0.6313726, 1)
 
-[node name="Label2" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="Label2" type="PanelContainer" parent="CanvasLayer/Control" unique_id=2030937265]
 layout_mode = 0
 offset_left = -120.0
 offset_top = 54.0
@@ -1290,7 +1331,7 @@ offset_bottom = 90.0
 pivot_offset = Vector2(70, 0)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6i5sj")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Label2"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Label2" unique_id=20298777]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 texture = ExtResource("13_syl27")
@@ -1301,7 +1342,7 @@ patch_margin_bottom = 10
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Label2"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Label2" unique_id=1281282551]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/margin_left = 10
@@ -1309,7 +1350,7 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/Label2/MarginContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/Label2/MarginContainer" unique_id=989847253]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_colors/font_color = Color(0.15810002, 0.42826495, 0.93, 1)
@@ -1319,7 +1360,7 @@ text = "DEPOSIT POINT"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Money2" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="Money2" type="PanelContainer" parent="CanvasLayer/Control" unique_id=723361074]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -1334,7 +1375,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_srql7")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Money2"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/Money2" unique_id=955079545]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 texture = ExtResource("13_syl27")
@@ -1345,14 +1386,14 @@ patch_margin_bottom = 10
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Money2"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Money2" unique_id=274799903]
 layout_mode = 2
 theme_override_constants/margin_left = 18
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/Money2/MarginContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/Money2/MarginContainer" unique_id=685519996]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = SubResource("FontVariation_syl27")
@@ -1361,7 +1402,8 @@ text = "OPEN"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="TextureProgressBar2" type="TextureProgressBar" parent="CanvasLayer/Control"]
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="CanvasLayer/Control" unique_id=2005526448]
+texture_filter = 1
 layout_mode = 0
 offset_left = 29.0
 offset_top = 63.0
@@ -1374,27 +1416,27 @@ texture_progress = ExtResource("15_6i5sj")
 tint_under = Color(0, 0, 0, 1)
 tint_progress = Color(0.15810002, 0.42826495, 0.93, 1)
 
-[node name="Control2" type="Control" parent="CanvasLayer"]
+[node name="Control2" type="Control" parent="CanvasLayer" unique_id=919657066]
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 72.0
-offset_top = -56.0
-offset_right = 112.0
-offset_bottom = -16.0
+offset_left = 80.0
+offset_top = -64.0
+offset_right = 120.0
+offset_bottom = -24.0
 grow_vertical = 0
 
-[node name="Label" type="PanelContainer" parent="CanvasLayer/Control2"]
+[node name="Label" type="PanelContainer" parent="CanvasLayer/Control2" unique_id=1504598345]
 layout_mode = 0
 offset_left = 3.0
-offset_top = -32.0
+offset_top = -40.0
 offset_right = 80.0
-offset_bottom = 4.0
+offset_bottom = -4.0
 pivot_offset = Vector2(70, 0)
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6i5sj")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control2/Label"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control2/Label" unique_id=1462762315]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 texture = ExtResource("13_syl27")
@@ -1405,7 +1447,7 @@ patch_margin_bottom = 10
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control2/Label"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control2/Label" unique_id=1433604453]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/margin_left = 11
@@ -1413,7 +1455,7 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control2/Label/MarginContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control2/Label/MarginContainer" unique_id=1410296344]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_colors/font_color = Color(0.74509805, 0.1882353, 0.14117648, 1)
@@ -1423,9 +1465,10 @@ text = "heALTH"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control2"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control2" unique_id=1784009216]
 layout_mode = 0
 offset_left = -8.0
+offset_top = -6.0
 offset_right = 271.0
 offset_bottom = 20.0
 step = 0.01
@@ -1439,3 +1482,68 @@ texture_under = ExtResource("13_syl27")
 texture_progress = ExtResource("13_syl27")
 tint_under = Color(0, 0, 0, 1)
 tint_progress = Color(0.74509805, 0.1882353, 0.14117648, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/Control2/TextureProgressBar" unique_id=1367617284]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.5
+offset_top = -8.0
+offset_right = 14.5
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.74509805, 0.1882353, 0.14117648, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = SubResource("FontVariation_syl27")
+theme_override_font_sizes/font_size = 17
+text = "100"
+horizontal_alignment = 1
+
+[node name="HealthOverflow" type="PanelContainer" parent="CanvasLayer/Control2/TextureProgressBar" unique_id=887881353]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 2.0
+offset_top = -13.0
+offset_right = 59.0
+offset_bottom = 13.0
+grow_horizontal = 0
+grow_vertical = 2
+pivot_offset = Vector2(70, 0)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6i5sj")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control2/TextureProgressBar/HealthOverflow" unique_id=1517893543]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+texture = ExtResource("13_syl27")
+patch_margin_left = 24
+patch_margin_top = 10
+patch_margin_right = 24
+patch_margin_bottom = 10
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Control" type="Control" parent="CanvasLayer/Control2/TextureProgressBar/HealthOverflow" unique_id=1081213433]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control2/TextureProgressBar/HealthOverflow/Control" unique_id=1411816740]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 1.0
+offset_right = 37.0
+offset_bottom = 24.0
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0.74509805, 0.1882353, 0.14117648, 1)
+theme_override_fonts/font = SubResource("FontVariation_syl27")
+theme_override_font_sizes/font_size = 16
+text = "+10"
+horizontal_alignment = 2
+vertical_alignment = 1

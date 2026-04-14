@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://bq706q4lav45d"]
+[gd_scene format=4 uid="uid://bq706q4lav45d"]
 
 [ext_resource type="Script" uid="uid://cg03vjohtp4rf" path="res://scripts/deposit_point.gd" id="1_4w1ee"]
 [ext_resource type="FontFile" uid="uid://cibhogromavd7" path="res://fonts/ShifterSans-Regular.otf" id="2_3r5bo"]
@@ -241,11 +241,11 @@ shader_parameter/emission_intensity = 0.0
 shader_parameter/fresnel_color = Color(0.18039216, 1, 0.6313726, 1)
 shader_parameter/fresnel_intensity = 0.0
 shader_parameter/fresnel_power = 3.000000095
-shader_parameter/rim_color = Color(0, 0, 0, 1)
-shader_parameter/rim_size = 0.0
+shader_parameter/rim_color = Color(0.18039216, 1, 0.6313726, 1)
+shader_parameter/rim_size = 1.0
 shader_parameter/rim_intensity = 0.0
-shader_parameter/rim_start = 0.0
-shader_parameter/rim_end = 0.0
+shader_parameter/rim_start = -1.0
+shader_parameter/rim_end = -0.83599999221
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qqcq"]
 resource_name = "DefaultMaterial"
@@ -296,7 +296,7 @@ stencil_compare = 5
 metadata/_stencil_owned = true
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_46mh2"]
-frequency = 1.0
+frequency = 0.1379
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3r5bo"]
 noise = SubResource("FastNoiseLite_46mh2")
@@ -315,6 +315,21 @@ stencil_mode = 1
 stencil_flags = 2
 stencil_color = Color(0.18039216, 1, 0.6313726, 1)
 stencil_outline_thickness = 0.0
+
+[sub_resource type="Animation" id="Animation_47tv6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshAnchor/Cube:material_overlay:shader_parameter/rim_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
 
 [sub_resource type="Animation" id="Animation_ttxi5"]
 resource_name = "active"
@@ -343,22 +358,100 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0.015, 0), Vector3(0, 0.015, 0), Vector3(0, 0, 0), Vector3(0, 0.01, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshAnchor/Cube:material_overlay:shader_parameter/rim_intensity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshAnchor/Cube:material_overlay:shader_parameter/rim_size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_35dv5"]
+resource_name = "hover"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshAnchor/Cube:material_overlay:shader_parameter/rim_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [0.90000004275, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshAnchor/Cube:material_overlay:shader_parameter/rim_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.16666667, 0.3),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshAnchor:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshAnchor:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_47tv6"]
 _data = {
-&"active": SubResource("Animation_ttxi5")
+&"RESET": SubResource("Animation_47tv6"),
+&"active": SubResource("Animation_ttxi5"),
+&"hover": SubResource("Animation_35dv5")
 }
 
-[node name="DepositPoint" type="StaticBody3D" groups=["deposit"]]
+[node name="DepositPoint" type="StaticBody3D" unique_id=1328212281 groups=["deposit"]]
 collision_layer = 96
 collision_mask = 0
 script = ExtResource("1_4w1ee")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1116219272]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("BoxShape3D_754bc")
 
-[node name="Label3D" type="Label3D" parent="."]
+[node name="Label3D" type="Label3D" parent="." unique_id=1171193527]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 visible = false
 pixel_size = 0.001
@@ -369,14 +462,12 @@ modulate = Color(0.74509805, 0.1882353, 0.14117648, 1)
 text = "deposit closed!"
 font = SubResource("FontVariation_4660f")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_4660f")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=85533996]
+libraries/ = SubResource("AnimationLibrary_4660f")
 
-[node name="MeshAnchor" type="Node3D" parent="."]
+[node name="MeshAnchor" type="Node3D" parent="." unique_id=1151924120]
 
-[node name="Cube" type="MeshInstance3D" parent="MeshAnchor"]
+[node name="Cube" type="MeshInstance3D" parent="MeshAnchor" unique_id=2116316826]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0.9, 0)
 layers = 1024
 material_overlay = SubResource("ShaderMaterial_0trxv")
@@ -384,17 +475,15 @@ mesh = SubResource("ArrayMesh_4w1ee")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_3r5bo")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=513895540]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 light_color = Color(0.18039216, 1, 0.6313726, 1)
 light_energy = 0.0
 light_cull_mask = 4294966271
 omni_attenuation = 2.0
 
-[node name="BounceAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_47tv6")
-}
+[node name="BounceAnimation" type="AnimationPlayer" parent="." unique_id=1398733785]
+libraries/ = SubResource("AnimationLibrary_47tv6")
 
 [connection signal="player_target" from="." to="." method="_on_player_target"]
 [connection signal="player_untarget" from="." to="." method="_on_player_untarget"]

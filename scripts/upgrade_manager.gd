@@ -12,6 +12,14 @@ func g(value) -> String:
 		value = round(value * 100) / 100.0
 	return "[color=2effa1]"+str(value)+"[/color]"
 
+func get_player_property(property: StringName):
+	if !is_inside_tree(): return 0
+	var player := get_tree().get_first_node_in_group("player")
+	if !player: return 0
+	return player.get(property)
+
+# dont do this
+# this one time its allowed i made this with like 1 hour to spare before the jam deadline
 var upgrades = {
 	"junk_cap_up": {
 		"title": "Resource Expansion",
@@ -20,7 +28,7 @@ var upgrades = {
 		"execute": func() -> void: game.junk_cap = game.junk_cap + 5,
 		"quotes": [
 			"acquisition quota increased. do not make\nus regret the investment.",
-			"more opportunities to prove yourself.\nor fail faster.",
+			"more opportunities to prove yourself.\nsquander at your own risk.",
 			"quantity is the new quality.",
 			"management appreciates your enthusiasm for overwork.",
 		],
@@ -40,13 +48,13 @@ var upgrades = {
 	},
 	"open_window_longer": {
 		"title": "Profit Opportunity",
-		"description": func() -> String: return "Increase deposit point open time\nby 15%% (%ss -> %ss)" % [r(game.deposit_window), g(game.deposit_window * 1.15)],
+		"description": func() -> String: return "Increase deposit point open time\nby 20%% (%ss -> %ss)" % [r(game.deposit_window), g(game.deposit_window * 1.2)],
 		"check": func() -> bool: return true,
-		"execute": func() -> void: game.deposit_window = game.deposit_window * 1.15,
+		"execute": func() -> void: game.deposit_window = game.deposit_window * 1.2,
 		"quotes": [
 			"more time to capitalize.\nno time to celebrate.",
 			"take advantage of every opportunity.\nor we will find someone who will.",
-			"corporate grace period activated.\nmake good use of it.",
+			"corporate grace period increased.\nmake good use of it.",
 		],
 		"quotes_done": [],
 	},
@@ -56,7 +64,7 @@ var upgrades = {
 		"check": func() -> bool: return game.closed_window > 0.5,
 		"execute": func() -> void: game.closed_window = game.closed_window * 0.85,
 		"quotes": [
-			"downtime is theft.",
+			"did you know downtime is theft?",
 			"rapid turnover keeps morale high.\nmostly our morale though.",
 			"if you cannot handle the pace, handle your resignation.",
 		],
@@ -64,13 +72,13 @@ var upgrades = {
 	},
 	"throw_rate": {
 		"title": "Disciplinary Action",
-		 "description": func() -> String: return "Decrease throw cooldown by 2 frames (%s -> %s)" % [r(game.throw_cooldown), g(max(3, game.throw_cooldown - 2))],
-		"check": func() -> bool: return game.throw_cooldown > 3,
-		"execute": func() -> void: game.throw_cooldown = max(3, game.throw_cooldown - 2),
+		 "description": func() -> String: return "Decrease throw cooldown by 4 frames (%s -> %s)" % [r(game.throw_cooldown), g(max(4, game.throw_cooldown - 4))],
+		"check": func() -> bool: return game.throw_cooldown > 4,
+		"execute": func() -> void: game.throw_cooldown = max(4, game.throw_cooldown - 4),
 		"quotes": [
 			"congratulations, you are now statistically more dangerous.",
 			"anger is a renewable resource.\nabuse it irresponsibly.",
-			"faster throws mean fewer excuses.",
+			"faster fire mean fewer excuses.",
 		],
 		"quotes_done": [],
 	},
@@ -82,14 +90,15 @@ var upgrades = {
 		"quotes": [
 			"speed is a competitive advantage.\ndo not use it to escape responsibility.",
 			"stationary assets depreciate rapidly.\nkeep moving.",
+			"if you are not moving forward,\nyou are falling behind.",
 		],
 		"quotes_done": [],
 	},
 	"throw_speed": {
 		"title": "Regular Exercise",
-		"description": func() -> String: return "Increase throw force by 2u (%su -> %su)\n(in turn, increase throw distance and damage)" % [r(game.throw_speed), g(game.throw_speed + 2)],
+		"description": func() -> String: return "Increase throw force by 4u (%su -> %su)\n(also increases throw distance and damage)" % [r(game.throw_speed), g(game.throw_speed + 4)],
 		"check": func() -> bool: return true,
-		"execute": func() -> void: game.throw_speed = game.throw_speed + 2,
+		"execute": func() -> void: game.throw_speed = game.throw_speed + 4,
 		"quotes": [
 			"physical improvement mandated by hr.",
 			"you are now stronger.\ndo not start getting ideas.",
@@ -99,21 +108,21 @@ var upgrades = {
 	},
 	"enemy_payout": {
 		"title": "Competitive Spirit",
-		"description": func() -> String: return "Increase payout on enemy kill by 20%% (%s -> %s)" % [r(game.enemy_payout_mult), g(game.enemy_payout_mult * 1.2)],
+		"description": func() -> String: return "Increase payout on enemy kill by 50%% (%s -> %s)" % [r(game.enemy_payout_mult), g(game.enemy_payout_mult * 1.5)],
 		"check": func() -> bool: return true,
-		"execute": func() -> void: game.enemy_payout_mult = game.enemy_payout_mult * 1.2,
+		"execute": func() -> void: game.enemy_payout_mult = game.enemy_payout_mult * 1.5,
 		"quotes": [
 			"kill efficiently.\nprofit enthusiastically.",
-			"fun fact, violence is\none of the metrics we track.",
+			"do not sympathize\nwith your competition.",
 			"we are all replaceable.\nincluding you.",
 		],
 		"quotes_done": [],
 	},
 	"loot_payout": {
 		"title": "Optimized Yield",
-		"description": func() -> String: return "Increase payout on item deposit by 15%% (%s -> %s)" % [r(game.loot_payout_mult), g(game.loot_payout_mult * 1.15)],
+		"description": func() -> String: return "Increase payout on item deposit by 30%% (%s -> %s)" % [r(game.loot_payout_mult), g(game.loot_payout_mult * 1.30)],
 		"check": func() -> bool: return true,
-		"execute": func() -> void: game.loot_payout_mult = game.loot_payout_mult * 1.15,
+		"execute": func() -> void: game.loot_payout_mult = game.loot_payout_mult * 1.30,
 		"quotes": [
 			"our analysts predict...\nmild success. prove them right.",
 			"every little bit helps.\nbut bigger bits help more.",
@@ -123,13 +132,12 @@ var upgrades = {
 	},
 	"heal": {
 		"title": "Mandatory Recovery",
-		"description": "Heal 60% of total health instantly",
+		"description": "Gain 60 health, even if it\nexceeds your maximum",
 		"check": func () -> bool: return true,
 		"execute": func() -> void: get_tree().get_first_node_in_group("player").heal(60),
 		"quotes": [
-			"sick leave is for the weak.\nwhich we are not.",
 			"patch yourself up and get back to it.",
-			"try not to bleed on\ncompany grounds again.",
+			"be sure too avoid future\nbleeding incidents on company time.",
 			"back on your feet.\nwork waits for no one.",
 		],
 		"quotes_done": [],

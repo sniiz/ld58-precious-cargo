@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bsp3cg8mr0pu1"]
+[gd_scene format=3 uid="uid://bsp3cg8mr0pu1"]
 
 [ext_resource type="Script" uid="uid://dgikmwnij4c6j" path="res://scripts/upgrade_manager.gd" id="1_0e6ea"]
 [ext_resource type="PackedScene" uid="uid://douauro5v5r7i" path="res://scenes/ui/upgrade_card.tscn" id="2_pb0oq"]
@@ -101,7 +101,7 @@ tracks/1/path = NodePath("ColorRect:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.26666668),
+"times": PackedFloat32Array(0, 0.33333334),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
 "values": [Color(0.11353335, 0.0806, 0.13, 0), Color(0.11353335, 0.0806, 0.13, 0.8352941)]
@@ -161,7 +161,7 @@ _data = {
 &"reveal": SubResource("Animation_pb0oq")
 }
 
-[node name="UpgradeManager" type="Control"]
+[node name="UpgradeManager" type="Control" unique_id=1857215016]
 process_mode = 3
 visible = false
 layout_mode = 3
@@ -172,7 +172,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0e6ea")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1446819067]
 modulate = Color(0.11353335, 0.0806, 0.13, 0.8352941)
 layout_mode = 1
 anchors_preset = 15
@@ -181,7 +181,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=905249473]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = 4
@@ -193,16 +193,16 @@ offset_right = 570.00024
 offset_bottom = 229.0
 grow_vertical = 2
 
-[node name="UpgradeCard" parent="VBoxContainer" instance=ExtResource("2_pb0oq")]
+[node name="UpgradeCard" parent="VBoxContainer" unique_id=871890843 instance=ExtResource("2_pb0oq")]
 layout_mode = 2
 
-[node name="UpgradeCard2" parent="VBoxContainer" instance=ExtResource("2_pb0oq")]
+[node name="UpgradeCard2" parent="VBoxContainer" unique_id=2096629501 instance=ExtResource("2_pb0oq")]
 layout_mode = 2
 
-[node name="UpgradeCard3" parent="VBoxContainer" instance=ExtResource("2_pb0oq")]
+[node name="UpgradeCard3" parent="VBoxContainer" unique_id=2065814270 instance=ExtResource("2_pb0oq")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=817478121]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -211,8 +211,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -768.0
 offset_top = -418.0
-offset_right = -429.99966
-offset_bottom = -368.99988
+offset_right = -429.99933
+offset_bottom = -368.99982
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(146, 24)
@@ -223,10 +223,8 @@ text = "select bonus"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_dx7in")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1721675218]
+libraries/ = SubResource("AnimationLibrary_dx7in")
 
 [connection signal="clicked" from="VBoxContainer/UpgradeCard" to="." method="_on_upgrade_card_clicked"]
 [connection signal="clicked" from="VBoxContainer/UpgradeCard2" to="." method="_on_upgrade_card_2_clicked"]

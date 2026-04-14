@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bios7hyy37dgr"]
+[gd_scene format=3 uid="uid://bios7hyy37dgr"]
 
 [ext_resource type="Script" uid="uid://dgi50i8r6xkhv" path="res://scripts/game.gd" id="1_efcww"]
 [ext_resource type="Script" uid="uid://bqp6aws2f4j85" path="res://scenes/game/main_menu.gd" id="1_nsdtn"]
@@ -165,6 +165,21 @@ texture_filter = 4
 material = SubResource("StandardMaterial3D_mfdv2")
 size = Vector3(15.8, 1, 15.8)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iotsf"]
+shading_mode = 0
+albedo_color = Color(0.8593652, 0.53980464, 0.8593652, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_73xsm"]
+material = SubResource("StandardMaterial3D_iotsf")
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwvss"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0, 0, 0, 1)
+expand_margin_top = 5.0
+expand_margin_bottom = 3.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73xsm"]
 content_margin_left = 10.0
 content_margin_right = 10.0
@@ -191,55 +206,55 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
-[node name="MainMenu" type="Node3D"]
+[node name="MainMenu" type="Node3D" unique_id=1352271876]
 script = ExtResource("1_nsdtn")
 
-[node name="Game" type="Node3D" parent="."]
+[node name="Game" type="Node3D" parent="." unique_id=230602229]
 process_mode = 3
 script = ExtResource("1_efcww")
 active = false
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Game"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Game" unique_id=1646340700]
 environment = SubResource("Environment_feb5d")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Game"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Game" unique_id=1945771502]
 transform = Transform3D(0.88294744, -0.37245682, 0.28579623, 0, 0.6087614, 0.79335344, -0.4694715, -0.7004894, 0.5375045, 0, 0, 0)
 light_color = Color(0.54, 0.44820002, 0.54, 1)
 light_energy = 1.5
 light_bake_mode = 1
 directional_shadow_blend_splits = true
 
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Game"]
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Game" unique_id=769357026]
 transform = Transform3D(-0.88294774, 0.37245673, -0.28579628, -2.5479482e-08, 0.6087614, 0.79335344, 0.4694716, 0.7004894, -0.5375046, 0, 0, 0)
 light_color = Color(0.10980392, 0.078431375, 0.1254902, 1)
 light_energy = 1.8
 light_bake_mode = 0
 
-[node name="JunkSpawner" parent="Game" instance=ExtResource("3_4oldi")]
+[node name="JunkSpawner" parent="Game" unique_id=2019905934 instance=ExtResource("3_4oldi")]
 process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -6)
 visible = false
 spawn_area = Vector3(40, 1, 35)
 junk = Array[PackedScene]([ExtResource("4_73xsm")])
 
-[node name="EnemyTimer" type="Timer" parent="Game"]
+[node name="EnemyTimer" type="Timer" parent="Game" unique_id=1536102944]
 wait_time = 5.0
 autostart = true
 
-[node name="JunkTimer" type="Timer" parent="Game"]
+[node name="JunkTimer" type="Timer" parent="Game" unique_id=810892012]
 wait_time = 5.0
 one_shot = true
 autostart = true
 
-[node name="DepositPoint" parent="Game" instance=ExtResource("5_21mov")]
+[node name="DepositPoint" parent="Game" unique_id=1211053325 instance=ExtResource("5_21mov")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.9948483, 0, 21.426966)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Game"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Game" unique_id=532624698]
 visible = false
 
-[node name="DialogManager" parent="Game/CanvasLayer" instance=ExtResource("6_ados7")]
+[node name="DialogManager" parent="Game/CanvasLayer" unique_id=688941221 instance=ExtResource("6_ados7")]
 
-[node name="Transition" type="ColorRect" parent="Game/CanvasLayer"]
+[node name="Transition" type="ColorRect" parent="Game/CanvasLayer" unique_id=614159077]
 visible = false
 self_modulate = Color(0, 0, 0, 1)
 z_index = 10
@@ -254,102 +269,111 @@ grow_vertical = 2
 pivot_offset = Vector2(800, 450)
 mouse_filter = 2
 
-[node name="TransitionAnimator" type="AnimationPlayer" parent="Game/CanvasLayer"]
+[node name="TransitionAnimator" type="AnimationPlayer" parent="Game/CanvasLayer" unique_id=739460495]
 root_node = NodePath("../..")
-libraries = {
-&"": SubResource("AnimationLibrary_jf311")
-}
+libraries/ = SubResource("AnimationLibrary_jf311")
 
-[node name="UpgradeManager" parent="Game/CanvasLayer" instance=ExtResource("8_dwvss")]
+[node name="UpgradeManager" parent="Game/CanvasLayer" unique_id=1026415169 instance=ExtResource("8_dwvss")]
 
-[node name="EnemySpawner" parent="Game" instance=ExtResource("9_yypk0")]
+[node name="EnemySpawner" parent="Game" unique_id=146198492 instance=ExtResource("9_yypk0")]
 process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.450581e-09, 0)
 visible = false
 spawn_area = Vector3(50, 0.01, 50)
 
-[node name="DepositOpenTime" type="Timer" parent="Game"]
+[node name="DepositOpenTime" type="Timer" parent="Game" unique_id=956580023]
 process_mode = 1
 process_callback = 0
 wait_time = 8.0
 one_shot = true
 
-[node name="DepositClosedTime" type="Timer" parent="Game"]
+[node name="DepositClosedTime" type="Timer" parent="Game" unique_id=436918110]
 process_mode = 1
 process_callback = 0
 wait_time = 4.0
 one_shot = true
 autostart = true
 
-[node name="Floor" type="StaticBody3D" parent="Game"]
+[node name="Floor" type="StaticBody3D" parent="Game" unique_id=896359554]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Floor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Floor" unique_id=503996632]
 shape = SubResource("WorldBoundaryShape3D_vef74")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Floor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Floor" unique_id=1007550492]
 mesh = SubResource("PlaneMesh_vef74")
 
-[node name="Barrier" type="Node3D" parent="Game"]
+[node name="Barrier" type="Node3D" parent="Game" unique_id=1223256711]
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="Game/Barrier"]
+[node name="StaticBody3D2" type="StaticBody3D" parent="Game/Barrier" unique_id=1486311476]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Barrier/StaticBody3D2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Barrier/StaticBody3D2" unique_id=2098384601]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 25, 0)
 shape = SubResource("BoxShape3D_vef74")
 
-[node name="StaticBody3D3" type="StaticBody3D" parent="Game/Barrier"]
+[node name="StaticBody3D3" type="StaticBody3D" parent="Game/Barrier" unique_id=1914624486]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Barrier/StaticBody3D3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Barrier/StaticBody3D3" unique_id=20286925]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 25, 0)
 shape = SubResource("BoxShape3D_vef74")
 
-[node name="StaticBody3D4" type="StaticBody3D" parent="Game/Barrier"]
+[node name="StaticBody3D4" type="StaticBody3D" parent="Game/Barrier" unique_id=1258101582]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Barrier/StaticBody3D4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Barrier/StaticBody3D4" unique_id=1626063047]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.5, 25, 0)
 shape = SubResource("BoxShape3D_vef74")
 
-[node name="StaticBody3D5" type="StaticBody3D" parent="Game/Barrier"]
+[node name="StaticBody3D5" type="StaticBody3D" parent="Game/Barrier" unique_id=586675800]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Barrier/StaticBody3D5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Game/Barrier/StaticBody3D5" unique_id=1662362045]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5, 25, 0)
 shape = SubResource("BoxShape3D_vef74")
 
-[node name="Column" parent="Game" instance=ExtResource("11_he4cy")]
+[node name="Column" parent="Game" unique_id=1747426573 instance=ExtResource("11_he4cy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 7)
 
-[node name="Column5" parent="Game" instance=ExtResource("11_he4cy")]
+[node name="Column5" parent="Game" unique_id=1093790652 instance=ExtResource("11_he4cy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
 
-[node name="Column6" parent="Game" instance=ExtResource("11_he4cy")]
+[node name="Column6" parent="Game" unique_id=48911146 instance=ExtResource("11_he4cy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
 
-[node name="Column2" parent="Game" instance=ExtResource("11_he4cy")]
+[node name="Column2" parent="Game" unique_id=727484921 instance=ExtResource("11_he4cy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 7)
 
-[node name="Column3" parent="Game" instance=ExtResource("11_he4cy")]
+[node name="Column3" parent="Game" unique_id=874102720 instance=ExtResource("11_he4cy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
 
-[node name="Column4" parent="Game" instance=ExtResource("11_he4cy")]
+[node name="Column4" parent="Game" unique_id=1691543221 instance=ExtResource("11_he4cy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Game"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Game" unique_id=1486526527]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.9, 0)
 mesh = SubResource("BoxMesh_mfdv2")
 skeleton = NodePath("")
 
-[node name="ReflectionProbe" type="ReflectionProbe" parent="Game"]
+[node name="ReflectionProbe" type="ReflectionProbe" parent="Game" unique_id=1448879714]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3000002, 0)
 visible = false
 size = Vector3(53, 10, 57)
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game" unique_id=89272043]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2999997, 0)
+mesh = SubResource("BoxMesh_73xsm")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Game/MeshInstance3D" unique_id=610706208]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+light_color = Color(0.8460169, 0.5315286, 0.8460169, 1)
+light_energy = 10.0
+omni_range = 13.0
+omni_attenuation = 2.0
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=567992111]
 transform = Transform3D(0.75628763, 0.11782194, 0.6435426, 0, 0.98365015, -0.18009, -0.65423924, 0.13619983, 0.7439225, 1.0498543, 0.71698517, 22.501259)
 fov = 70.0
 
-[node name="Menu" type="Control" parent="."]
+[node name="Menu" type="Control" parent="." unique_id=1074206170]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -357,7 +381,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Menu" type="VBoxContainer" parent="Menu"]
+[node name="Menu" type="VBoxContainer" parent="Menu" unique_id=1842979154]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -372,14 +396,26 @@ grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/separation = 100
 
-[node name="Logo" type="TextureRect" parent="Menu/Menu"]
+[node name="Logo" type="TextureRect" parent="Menu/Menu" unique_id=262497826]
 custom_minimum_size = Vector2(348, 145)
 layout_mode = 2
 texture = ExtResource("13_4oldi")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Button" type="Button" parent="Menu/Menu"]
+[node name="Label" type="Label" parent="Menu/Menu/Logo" unique_id=1760287466]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 152.0
+offset_right = 335.0
+offset_bottom = 169.0
+theme_override_fonts/font = ExtResource("14_73xsm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_dwvss")
+text = "post-jam bug fixes"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Button" type="Button" parent="Menu/Menu" unique_id=1260190634]
 layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -392,19 +428,19 @@ theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_21mov")
 theme_override_styles/focus = SubResource("StyleBoxFlat_73xsm")
 text = "PLAY"
 
-[node name="PanelContainer" type="PanelContainer" parent="Menu/Menu"]
+[node name="PanelContainer" type="PanelContainer" parent="Menu/Menu" unique_id=1448308028]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_648uh")
 
-[node name="Label" type="Label" parent="Menu/Menu/PanelContainer"]
+[node name="Label" type="Label" parent="Menu/Menu/PanelContainer" unique_id=717019557]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("14_73xsm")
 text = "personAl best: "
 horizontal_alignment = 1
 uppercase = true
 
-[node name="PanelContainer" type="PanelContainer" parent="Menu"]
+[node name="PanelContainer" type="PanelContainer" parent="Menu" unique_id=13153798]
 visible = false
 layout_mode = 1
 anchors_preset = 1

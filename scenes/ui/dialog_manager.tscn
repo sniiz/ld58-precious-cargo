@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dr4cmmisfumy5"]
+[gd_scene format=3 uid="uid://dr4cmmisfumy5"]
 
 [ext_resource type="Script" uid="uid://qtu2ieppno3w" path="res://scripts/dialog_manager.gd" id="1_0j28i"]
 [ext_resource type="Texture2D" uid="uid://6a0p3mlvs7bt" path="res://textures/2d/boss-talkbox-1.png" id="1_w7lbb"]
@@ -218,7 +218,7 @@ _data = {
 &"reveal": SubResource("Animation_0j28i")
 }
 
-[node name="DialogManager" type="Control" groups=["dialog"]]
+[node name="DialogManager" type="Control" unique_id=1190606248 groups=["dialog"]]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -232,7 +232,7 @@ mouse_filter = 2
 script = ExtResource("1_0j28i")
 vowels = Array[AudioStream]([ExtResource("2_p0hp7"), ExtResource("3_p3s3a"), ExtResource("4_foxlo"), ExtResource("5_l8mbq"), ExtResource("6_kamvc"), ExtResource("7_c01yj")])
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1212124021]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 24.0
@@ -240,7 +240,7 @@ offset_right = 187.0
 offset_bottom = 156.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_s662a")
 
-[node name="Texture" type="NinePatchRect" parent="PanelContainer"]
+[node name="Texture" type="NinePatchRect" parent="PanelContainer" unique_id=2142097715]
 layout_mode = 2
 texture = SubResource("AnimatedTexture_w7lbb")
 patch_margin_left = 70
@@ -250,25 +250,25 @@ patch_margin_bottom = 70
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=66746777]
 layout_mode = 2
 theme_override_constants/margin_left = 14
 theme_override_constants/margin_top = 22
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer" unique_id=216068636]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=543243432]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 texture = ExtResource("2_tw75q")
 expand_mode = 5
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/HBoxContainer" unique_id=1987533499]
 texture_filter = 1
 layout_mode = 2
 theme_override_constants/line_spacing = 7
@@ -277,18 +277,16 @@ theme_override_font_sizes/font_size = 24
 vertical_alignment = 1
 uppercase = true
 
-[node name="Animator" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_yow45")
-}
+[node name="Animator" type="AnimationPlayer" parent="." unique_id=493580406]
+libraries/ = SubResource("AnimationLibrary_yow45")
 
-[node name="OpenSound" type="AudioStreamPlayer" parent="."]
+[node name="OpenSound" type="AudioStreamPlayer" parent="." unique_id=2020029390]
 stream = ExtResource("6_yow45")
 bus = &"Sfx"
 
-[node name="CloseSound" type="AudioStreamPlayer" parent="."]
+[node name="CloseSound" type="AudioStreamPlayer" parent="." unique_id=1198013855]
 stream = ExtResource("7_qpfoi")
 
-[node name="TalkSound" type="AudioStreamPlayer" parent="."]
+[node name="TalkSound" type="AudioStreamPlayer" parent="." unique_id=1125198082]
 volume_db = -10.0
 bus = &"Boss"

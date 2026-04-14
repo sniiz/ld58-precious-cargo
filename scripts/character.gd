@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+const SCORE_LABEL = preload("uid://pq64uwvyk5dl")
+
 @export var base_speed := 15.0
 
 @export var acceleration := 5.0
@@ -7,7 +9,7 @@ extends CharacterBody3D
 
 @export var jump_velocity := 5.5
 @export var in_air_speed_rate := 0.3
-@export var mouse_sensitivity := 0.08
+@export var mouse_sensitivity := 0.06
 
 @export var max_health := 100.0
 @export var health := max_health
@@ -17,7 +19,7 @@ var display_health := max_health
 @export var accel_mod := 0.0
 @export var hurt_speed_mod := 0.0
 
-@export var target_fov := 90.0:
+@export var target_fov := 95.0:
 	set(value):
 		target_fov = value
 		camera.fov = target_fov + fov_mod
@@ -43,6 +45,10 @@ var display_health := max_health
 @onready var pts_progress: TextureProgressBar = $CanvasLayer/Control/TextureProgressBar
 @onready var deposit_progress: TextureProgressBar = $CanvasLayer/Control/TextureProgressBar2
 @onready var deposit_progress_label: Label = $CanvasLayer/Control/Money2/MarginContainer/Label
+@onready var level_label: Label = $CanvasLayer/Control/Money/Control/Label3/MarginContainer/LevelLabel
+@onready var health_label: Label = $CanvasLayer/Control2/TextureProgressBar/Label
+@onready var health_overflow: PanelContainer = $CanvasLayer/Control2/TextureProgressBar/HealthOverflow
+@onready var health_overflow_label: Label = $CanvasLayer/Control2/TextureProgressBar/HealthOverflow/Control/Label
 
 @export var carried_junk : Array[RigidBody3D]
 @export var carried_junk_offsets : Array[Vector3]
@@ -84,7 +90,7 @@ func _ready() -> void:
 	mouse_sensitivity = config.get_value("conf", "mouse_sensitivity", 0.08)
 	headbob_enabled = config.get_value("conf", "headbob", true)
 	jump_anim_enabled = config.get_value("conf", "jump_anim", true)
-	start_deposit(6.0, true)
+	start_deposit(4.0, true)
 
 func start_deposit(wait_time: float, is_closed: bool) -> void:
 	deposit_progress_sec = 0.0
@@ -132,9 +138,11 @@ func add_money(money : int) -> void:
 		await get_tree().create_timer(0.3).timeout
 		get_parent().handle_upgrade(level)
 
+	level_label.text = "lv    %s" % level
+
 @warning_ignore("shadowed_variable")
 func calculate_required_points(level: int) -> int:
-	return floor(110 * pow(1.45, level))
+	return floor(110 * pow(1.25, level))
 
 func _handle_movement(delta: float, input_dir: Vector2) -> void:
 	var rotated_direction := input_dir.rotated(-head.rotation.y)
@@ -220,6 +228,7 @@ func _throw() -> void:
 	junk_offset.y -= 0.075
 
 func _handle_throwing() -> void:
+	throw_cooldown_frames = get_parent().throw_cooldown
 	throw_cooldown_counter = min(throw_cooldown_frames, throw_cooldown_counter + 1)
 	if Input.is_action_pressed("throw") and throw_cooldown_counter >= throw_cooldown_frames:
 		throw_cooldown_counter = 0
@@ -264,6 +273,10 @@ func _physics_process(delta: float) -> void:
 		health_progress.value = display_health
 		health_progress.max_value = max_health
 
+	health_label.text = "%s" % min(100, floori(health))
+	health_overflow.visible = health > 100
+	health_overflow_label.text = "+%s" % floori(health - 100)
+
 	if level_progress == 0:
 		display_level_progress = 0
 		pts_progress.value = display_level_progress
@@ -292,7 +305,12 @@ func _physics_process(delta: float) -> void:
 
 	if targeted_node and Input.is_action_just_pressed("deposit") and targeted_node.is_in_group("deposit"):
 		if targeted_node.deposit(carried_junk, self):
+			var mult : float = get_parent().loot_payout_mult
 			for node in junk_anchor.get_children():
+				var score_instance = SCORE_LABEL.instantiate()
+				score_instance.text = "+%s" % ceil(0.7 * 25.0 * mult)
+				add_sibling(score_instance)
+				score_instance.global_position = node.global_position
 				node.queue_free()
 			speed_mod = 0.0
 			carried_junk = []
