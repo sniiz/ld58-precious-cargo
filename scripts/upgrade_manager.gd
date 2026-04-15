@@ -137,7 +137,7 @@ var upgrades = {
 		"execute": func() -> void: get_tree().get_first_node_in_group("player").heal(60),
 		"quotes": [
 			"patch yourself up and get back to it.",
-			"be sure too avoid future\nbleeding incidents on company time.",
+			"be sure to avoid future\nbleeding incidents on company time.",
 			"back on your feet.\nwork waits for no one.",
 		],
 		"quotes_done": [],
