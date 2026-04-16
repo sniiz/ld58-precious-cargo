@@ -525,8 +525,148 @@ tracks/11/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("CanvasLayer/Control2:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.74509805, 0.1882353, 0.14117648, 1)]
+}
 
 [sub_resource type="Gradient" id="Gradient_jt4eu"]
+offsets = PackedFloat32Array(0.2133191, 1)
+colors = PackedColorArray(0.10980392, 0.078431375, 0.1254902, 1, 0.18039216, 1, 0.6313726, 1)
+
+[sub_resource type="Animation" id="Animation_pbpxc"]
+resource_name = "hurt"
+length = 0.50000334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/CamContainer/Camera3D/Arm/Plane005:surface_material_override/0:emission_energy_multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.5),
+"transitions": PackedFloat32Array(1, 2, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/CamContainer/Camera3D/Arm/Plane005:surface_material_override/0:uv2_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.5, 0.5, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Head/CamContainer/Camera3D/Arm/Plane005:surface_material_override/0:emission_texture:color_ramp")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("Gradient_jt4eu")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head/CamContainer/Camera3D/Arm/Plane005:surface_material_override/0:stencil_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.18039216, 1, 0.6313726, 1), Color(0.24313726, 0.36862746, 0.30588236, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Head/CamContainer/Camera3D/Arm/Node3D/Label3D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = false
+tracks/5/path = NodePath("CanvasLayer/VignettePostProcess:material:shader_parameter/radius")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.7, 0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CanvasLayer/VignettePostProcess:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = false
+tracks/7/path = NodePath(".:hurt_speed_mod")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [-2.0, 0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CanvasLayer/Control2:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(-2),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CanvasLayer/Control2:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(4, 1),
+"update": 0,
+"values": [Color(0.18039216, 1, 0.6313726, 1), Color(0.74509805, 0.1882353, 0.14117648, 1)]
+}
+
+[sub_resource type="Gradient" id="Gradient_pbpxc"]
 offsets = PackedFloat32Array(0.2133191, 1)
 colors = PackedColorArray(0.10980392, 0.078431375, 0.1254902, 1, 0.74509805, 0.1882353, 0.14117648, 1)
 
@@ -540,10 +680,10 @@ tracks/0/path = NodePath("Head/CamContainer/Camera3D/Arm/Plane005:surface_materi
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.06666667, 0.5),
-"transitions": PackedFloat32Array(1, 0.5, 1),
+"times": PackedFloat32Array(0, 0.06666667, 0.1, 0.16666667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 0.5, 1),
 "update": 0,
-"values": [2.0, 2.0, 0.0]
+"values": [2.0, 3.0, 2.0, 2.5, 0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -567,7 +707,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [SubResource("Gradient_jt4eu")]
+"values": [SubResource("Gradient_pbpxc")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -636,10 +776,22 @@ tracks/8/path = NodePath("CanvasLayer/Control2:scale")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(-2, 1),
+"update": 0,
+"values": [Vector2(1.3, 1.3), Vector2(1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CanvasLayer/Control2:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
+"values": [Color(2.0631123, 0.5965613, 0.46323854, 1), Color(0.74509805, 0.1882353, 0.14117648, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_jt4eu"]
@@ -757,6 +909,7 @@ tracks/8/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jt4eu"]
 _data = {
 &"RESET": SubResource("Animation_srql7"),
+&"heal": SubResource("Animation_pbpxc"),
 &"hurt": SubResource("Animation_1leso"),
 &"no_space": SubResource("Animation_jt4eu")
 }
@@ -775,12 +928,6 @@ stream_5/stream = ExtResource("7_6i5sj")
 stream_6/stream = ExtResource("8_tp1u3")
 stream_7/stream = ExtResource("9_ikodv")
 stream_8/stream = ExtResource("10_pbpxc")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_syl27"]
-shader = ExtResource("12_jt4eu")
-shader_parameter/radius = 1.0
-shader_parameter/speed = 0.400000019
-shader_parameter/effect_color = Color(0.2901961, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6i5sj"]
 
@@ -1030,6 +1177,12 @@ _data = {
 base_font = ExtResource("11_1leso")
 spacing_glyph = 1
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_syl27"]
+shader = ExtResource("12_jt4eu")
+shader_parameter/radius = 1.0
+shader_parameter/speed = 0.400000019
+shader_parameter/effect_color = Color(0.2901961, 0, 0, 1)
+
 [node name="Character" type="CharacterBody3D" unique_id=1454343846 groups=["player"]]
 process_mode = 1
 collision_layer = 2
@@ -1152,17 +1305,6 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("11_1leso")
 theme_override_font_sizes/font_size = 12
 text = "fps 144.0"
-
-[node name="VignettePostProcess" type="ColorRect" parent="CanvasLayer" unique_id=566764168]
-visible = false
-texture_filter = 3
-material = SubResource("ShaderMaterial_syl27")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=1318152738]
 texture_filter = 3
@@ -1417,6 +1559,7 @@ tint_under = Color(0, 0, 0, 1)
 tint_progress = Color(0.15810002, 0.42826495, 0.93, 1)
 
 [node name="Control2" type="Control" parent="CanvasLayer" unique_id=919657066]
+modulate = Color(0.74509805, 0.1882353, 0.14117648, 1)
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
@@ -1458,7 +1601,6 @@ theme_override_constants/margin_bottom = 2
 [node name="Label" type="Label" parent="CanvasLayer/Control2/Label/MarginContainer" unique_id=1410296344]
 layout_mode = 2
 size_flags_horizontal = 10
-theme_override_colors/font_color = Color(0.74509805, 0.1882353, 0.14117648, 1)
 theme_override_fonts/font = SubResource("FontVariation_syl27")
 theme_override_font_sizes/font_size = 16
 text = "heALTH"
@@ -1481,7 +1623,6 @@ stretch_margin_bottom = 10
 texture_under = ExtResource("13_syl27")
 texture_progress = ExtResource("13_syl27")
 tint_under = Color(0, 0, 0, 1)
-tint_progress = Color(0.74509805, 0.1882353, 0.14117648, 1)
 
 [node name="Label" type="Label" parent="CanvasLayer/Control2/TextureProgressBar" unique_id=1367617284]
 layout_mode = 1
@@ -1496,7 +1637,6 @@ offset_right = 14.5
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.74509805, 0.1882353, 0.14117648, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = SubResource("FontVariation_syl27")
@@ -1541,9 +1681,19 @@ offset_top = 1.0
 offset_right = 37.0
 offset_bottom = 24.0
 size_flags_horizontal = 10
-theme_override_colors/font_color = Color(0.74509805, 0.1882353, 0.14117648, 1)
 theme_override_fonts/font = SubResource("FontVariation_syl27")
 theme_override_font_sizes/font_size = 16
 text = "+10"
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="VignettePostProcess" type="ColorRect" parent="CanvasLayer" unique_id=566764168]
+visible = false
+texture_filter = 3
+material = SubResource("ShaderMaterial_syl27")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

@@ -11,12 +11,12 @@ var health := 100
 
 @onready var healthbar: ProgressBar = $Health
 
-@export var base_shoot_interval := 1.2          # seconds between shots
-@export var wander_radius := 10.0                # how far it can wander
-@export var wander_interval := 2.0              # seconds between potential wander actions
-@export var move_speed := 3.0                   # wander move speed
-@export var close_range := 20.0                 # distance at which it becomes "restless"
-@export var far_range := 30.0                   # distance at which it calms down
+@export var base_shoot_interval := 1.2
+@export var wander_radius := 10.0
+@export var wander_interval := 2.0
+@export var move_speed := 3.0
+@export var close_range := 20.0
+@export var far_range := 30.0
 
 var shoot_timer := base_shoot_interval * 1.5
 var wander_timer := 0.0
@@ -33,7 +33,9 @@ func on_damage(damage: float) -> void:
 	hurt.stop()
 	hurt.play("hurt")
 	if health <= 0:
-		target.add_money(ceil(randi_range(4, 6) * get_parent().enemy_payout_mult))
+		var payout := ceili(randi_range(6, 8) * get_parent().enemy_payout_mult)
+		target.add_money(payout)
+		if get_parent().is_leech: target.heal(10, false)
 		queue_free()
 
 func _physics_process(delta: float) -> void:

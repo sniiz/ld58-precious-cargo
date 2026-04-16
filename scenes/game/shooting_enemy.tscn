@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://13nrec8l5nhr" path="res://scripts/shooting_enemy.gd" id="1_ejqf8"]
 [ext_resource type="Texture2D" uid="uid://b51pu0yptf4eo" path="res://textures/2d/skellum.png" id="2_2866t"]
 [ext_resource type="Texture2D" uid="uid://bcvq1xlpmnj8p" path="res://textures/2d/skellum-open.png" id="3_bpm88"]
+[ext_resource type="Texture2D" uid="uid://behko80q4vw21" path="res://textures/3d/circle_05.png" id="4_s0enc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ejqf8"]
 radius = 1.0
@@ -120,3 +121,10 @@ theme_override_styles/background = SubResource("StyleBoxFlat_bpm88")
 theme_override_styles/fill = SubResource("StyleBoxFlat_s0enc")
 max_value = 130.0
 show_percentage = false
+
+[node name="Decal" type="Decal" parent="." unique_id=2025147362]
+size = Vector3(4, 1, 4)
+texture_albedo = ExtResource("4_s0enc")
+modulate = Color(0, 0, 0, 1)
+albedo_mix = 0.8
+cull_mask = 1048574

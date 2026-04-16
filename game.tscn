@@ -36,17 +36,19 @@ process_mode = 3
 [sub_resource type="Environment" id="Environment_feb5d"]
 background_mode = 2
 sky = SubResource("Sky_e2o6t")
-ambient_light_sky_contribution = 0.2
-reflected_light_source = 2
+ambient_light_color = Color(0.46, 0.345, 0.42549998, 1)
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.45
 tonemap_mode = 3
-tonemap_exposure = 2.2
-tonemap_white = 3.0
+tonemap_exposure = 2.0
+tonemap_white = 14.99
 glow_enabled = true
-glow_intensity = 0.6
-glow_bloom = 0.08
+glow_normalized = true
+glow_intensity = 0.2
+glow_bloom = 0.02
 glow_hdr_threshold = 0.8
 adjustment_enabled = true
-adjustment_saturation = 1.1
+adjustment_saturation = 1.15
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iotsf"]
 shader = ExtResource("9_mfdv2")
@@ -203,10 +205,12 @@ spawn_area = Vector3(40, 1, 35)
 junk = Array[PackedScene]([ExtResource("4_fc0e3")])
 
 [node name="EnemyTimer" type="Timer" parent="." unique_id=588291846]
+process_mode = 1
 wait_time = 5.0
 autostart = true
 
 [node name="JunkTimer" type="Timer" parent="." unique_id=647498364]
+process_mode = 1
 wait_time = 5.0
 one_shot = true
 autostart = true
@@ -217,6 +221,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5051518, 0, 22.526966)
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2045140313]
 
 [node name="DialogManager" parent="CanvasLayer" unique_id=1074511906 instance=ExtResource("9_vef74")]
+process_mode = 1
 
 [node name="Transition" type="ColorRect" parent="CanvasLayer" unique_id=109450636]
 visible = false
@@ -264,6 +269,7 @@ autostart = true
 shape = SubResource("WorldBoundaryShape3D_vef74")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=106595088]
+layers = 3
 mesh = SubResource("PlaneMesh_vef74")
 
 [node name="Barrier" type="Node3D" parent="." unique_id=85761510]

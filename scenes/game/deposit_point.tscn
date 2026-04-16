@@ -4,6 +4,7 @@
 [ext_resource type="FontFile" uid="uid://cibhogromavd7" path="res://fonts/ShifterSans-Regular.otf" id="2_3r5bo"]
 [ext_resource type="Texture2D" uid="uid://dc8s5ihmpmheb" path="res://textures/3d/mailbox-albedo.png" id="2_46mh2"]
 [ext_resource type="Shader" uid="uid://b82awfais3842" path="res://shaders/fresnel.gdshader" id="3_4660f"]
+[ext_resource type="Texture2D" uid="uid://behko80q4vw21" path="res://textures/3d/circle_05.png" id="5_0trxv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_754bc"]
 size = Vector3(1, 1.6, 1)
@@ -484,6 +485,15 @@ omni_attenuation = 2.0
 
 [node name="BounceAnimation" type="AnimationPlayer" parent="." unique_id=1398733785]
 libraries/ = SubResource("AnimationLibrary_47tv6")
+
+[node name="Decal" type="Decal" parent="." unique_id=538907120]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23761642, 0)
+size = Vector3(4, 0.5, 4)
+texture_albedo = ExtResource("5_0trxv")
+modulate = Color(0, 0, 0, 1)
+albedo_mix = 0.8
+upper_fade = 0.0
+cull_mask = 1048574
 
 [connection signal="player_target" from="." to="." method="_on_player_target"]
 [connection signal="player_untarget" from="." to="." method="_on_player_untarget"]

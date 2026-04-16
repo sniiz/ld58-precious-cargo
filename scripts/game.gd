@@ -12,10 +12,11 @@ extends Node3D
 	set(value):
 		move_speed_mult = value
 		get_tree().get_first_node_in_group("player").base_speed = 15.0 * move_speed_mult
+@export var item_weight_mult := 1.0
 @export var throw_speed := 30.0
 @export var enemy_payout_mult := 1.0
 @export var loot_payout_mult := 1.0
-@export var is_paid_overtime := false
+@export var is_leech := false
 
 @onready var deposit_point: StaticBody3D = $DepositPoint
 @onready var deposit_closed_time: Timer = $DepositClosedTime

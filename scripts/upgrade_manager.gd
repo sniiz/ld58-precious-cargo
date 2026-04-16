@@ -6,11 +6,23 @@ extends Control
 func r(value) -> String:
 	if value is float:
 		value = round(value * 100) / 100.0
-	return "[color=be3024]"+str(value)+"[/color]"
+
+	# surely there's a better way to do this
+	var output_str = str(value)
+	if output_str.ends_with(".0"):
+		output_str = output_str.substr(0, output_str.length() - 2)
+
+	return "[color=be3024]"+output_str+"[/color]"
+
 func g(value) -> String:
 	if value is float:
 		value = round(value * 100) / 100.0
-	return "[color=2effa1]"+str(value)+"[/color]"
+
+	var output_str = str(value)
+	if output_str.ends_with(".0"):
+		output_str = output_str.substr(0, output_str.length() - 2)
+
+	return "[color=2effa1]"+output_str+"[/color]"
 
 func get_player_property(property: StringName):
 	if !is_inside_tree(): return 0
@@ -30,7 +42,7 @@ var upgrades = {
 			"acquisition quota increased. do not make\nus regret the investment.",
 			"more opportunities to prove yourself.\nsquander at your own risk.",
 			"quantity is the new quality.",
-			"management appreciates your enthusiasm for overwork.",
+			"management appreciates your\nappetite for overwork.",
 		],
 		"quotes_done": [],
 	},
@@ -48,7 +60,7 @@ var upgrades = {
 	},
 	"open_window_longer": {
 		"title": "Profit Opportunity",
-		"description": func() -> String: return "Increase deposit point open time\nby 20%% (%ss -> %ss)" % [r(game.deposit_window), g(game.deposit_window * 1.2)],
+		"description": func() -> String: return "Increase mailbox open time by 20%% (%ss -> %ss)" % [r(game.deposit_window), g(game.deposit_window * 1.2)],
 		"check": func() -> bool: return true,
 		"execute": func() -> void: game.deposit_window = game.deposit_window * 1.2,
 		"quotes": [
@@ -60,57 +72,57 @@ var upgrades = {
 	},
 	"closed_window_shorter": {
 		"title": "Rapid Turnover",
-		"description": func() -> String: return "Decrease deposit point closed time\nby 15%% (%ss -> %ss)" % [r(game.closed_window), g(game.closed_window * 0.85)],
+		"description": func() -> String: return "Decrease mailbox closed time by 15%% (%ss -> %ss)" % [r(game.closed_window), g(game.closed_window * 0.85)],
 		"check": func() -> bool: return game.closed_window > 0.5,
 		"execute": func() -> void: game.closed_window = game.closed_window * 0.85,
 		"quotes": [
-			"did you know downtime is theft?",
+			"downtime is theft.\nwe are reducing theft.",
 			"rapid turnover keeps morale high.\nmostly our morale though.",
-			"if you cannot handle the pace, handle your resignation.",
+			"if you cannot handle the pace,\nhandle your resignation.",
 		],
 		"quotes_done": [],
 	},
 	"throw_rate": {
 		"title": "Disciplinary Action",
-		 "description": func() -> String: return "Decrease throw cooldown by 4 frames (%s -> %s)" % [r(game.throw_cooldown), g(max(4, game.throw_cooldown - 4))],
-		"check": func() -> bool: return game.throw_cooldown > 4,
-		"execute": func() -> void: game.throw_cooldown = max(4, game.throw_cooldown - 4),
+		 "description": func() -> String: return "Decrease throw cooldown by 3 frames (%s -> %s)" % [r(game.throw_cooldown), g(max(3, game.throw_cooldown - 3))],
+		"check": func() -> bool: return game.throw_cooldown > 12,
+		"execute": func() -> void: game.throw_cooldown = max(9, game.throw_cooldown - 3),
 		"quotes": [
-			"congratulations, you are now statistically more dangerous.",
-			"anger is a renewable resource.\nabuse it irresponsibly.",
-			"faster fire mean fewer excuses.",
+			"you are now statistically\nmore dangerous to others",
+			"anger is a renewable resource.\nwe expect full utilization.",
+			"fewer misses means fewer excuses.",
 		],
 		"quotes_done": [],
 	},
 	"move_speed": {
 		"title": "Efficient Commute",
-		"description": func() -> String: return "Increase base movement speed\nby 10%% (+%s%% -> +%s%%)" % [r(100.0 * (game.move_speed_mult - 1.0)), g(100.0 * (game.move_speed_mult * 1.1 - 1.0))],
+		"description": func() -> String: return "Increase movement speed by 10%% (+%s%% -> +%s%%)" % [r(100.0 * (game.move_speed_mult - 1.0)), g(100.0 * (game.move_speed_mult * 1.1 - 1.0))],
 		"check": func() -> bool: return game.move_speed_mult < 2.0,
 		"execute": func() -> void: game.move_speed_mult = game.move_speed_mult * 1.1,
 		"quotes": [
-			"speed is a competitive advantage.\ndo not use it to escape responsibility.",
+			"speed is a competitive advantage.\nnot an excuse to wander.",
 			"stationary assets depreciate rapidly.\nkeep moving.",
-			"if you are not moving forward,\nyou are falling behind.",
+			"never stop moving.\nif you do, we will notice.",
 		],
 		"quotes_done": [],
 	},
 	"throw_speed": {
 		"title": "Regular Exercise",
-		"description": func() -> String: return "Increase throw force by 4u (%su -> %su)\n(also increases throw distance and damage)" % [r(game.throw_speed), g(game.throw_speed + 4)],
+		"description": func() -> String: return "Increase throw force by 6u (%su -> %su)\n(increases throw distance and impact damage)" % [r(game.throw_speed), g(game.throw_speed + 6)],
 		"check": func() -> bool: return true,
-		"execute": func() -> void: game.throw_speed = game.throw_speed + 4,
+		"execute": func() -> void: game.throw_speed = game.throw_speed + 6,
 		"quotes": [
-			"physical improvement mandated by hr.",
+			"physical improvement\nmandated by hr.",
 			"you are now stronger.\ndo not start getting ideas.",
-			"strength without discipline\nleads to unemployment.",
+			"we invested in your body.\nwe expect a return on that investment.",
 		],
 		"quotes_done": [],
 	},
 	"enemy_payout": {
 		"title": "Competitive Spirit",
-		"description": func() -> String: return "Increase payout on enemy kill by 50%% (%s -> %s)" % [r(game.enemy_payout_mult), g(game.enemy_payout_mult * 1.5)],
+		"description": func() -> String: return "Increase payout on\nenemy kill by 75%% (%s%% -> %s%%)" % [r(100.0 * (game.enemy_payout_mult)), g(100.0 * (game.enemy_payout_mult + 0.75))],
 		"check": func() -> bool: return true,
-		"execute": func() -> void: game.enemy_payout_mult = game.enemy_payout_mult * 1.5,
+		"execute": func() -> void: game.enemy_payout_mult = game.enemy_payout_mult + 0.75,
 		"quotes": [
 			"kill efficiently.\nprofit enthusiastically.",
 			"do not sympathize\nwith your competition.",
@@ -119,10 +131,10 @@ var upgrades = {
 		"quotes_done": [],
 	},
 	"loot_payout": {
-		"title": "Optimized Yield",
-		"description": func() -> String: return "Increase payout on item deposit by 30%% (%s -> %s)" % [r(game.loot_payout_mult), g(game.loot_payout_mult * 1.30)],
+		"title": "Yield Optimization",
+		"description": func() -> String: return "Increase payout on item\ndeposit by 75%% (%s%% -> %s%%)" % [r(100.0 * (game.loot_payout_mult)), g(100.0 * (game.loot_payout_mult + 0.75))],
 		"check": func() -> bool: return true,
-		"execute": func() -> void: game.loot_payout_mult = game.loot_payout_mult * 1.30,
+		"execute": func() -> void: game.loot_payout_mult = game.loot_payout_mult + 0.75,
 		"quotes": [
 			"our analysts predict...\nmild success. prove them right.",
 			"every little bit helps.\nbut bigger bits help more.",
@@ -132,16 +144,41 @@ var upgrades = {
 	},
 	"heal": {
 		"title": "Mandatory Recovery",
-		"description": "Gain 60 health, even if it\nexceeds your maximum",
-		"check": func () -> bool: return true,
+		"description": func() -> String: return "Gain 60HP instantly.\nUnlike other sources of healing, can %s 100HP." % g("exceed"),
+		"check": func () -> bool: return !game.is_leech,
 		"execute": func() -> void: get_tree().get_first_node_in_group("player").heal(60),
 		"quotes": [
 			"patch yourself up and get back to it.",
+			"workplace injuries are\nan individual responsibility.",
 			"be sure to avoid future\nbleeding incidents on company time.",
 			"back on your feet.\nwork waits for no one.",
 		],
 		"quotes_done": [],
 	},
+	"leech": {
+		"title": "Postmortem Dividend",
+		# "description": func() -> String: return "Gain health equal to 100%% of kill payout.\n%s" % r("Mandatory Recovery (healing) no longer appears."),
+		"description": func() -> String: return "Gain 10HP on kill, up to 100HP total.\n%s" % r("Mandatory Recovery (healing) no longer appears."),
+		"check": func() -> bool: return !game.is_leech,
+		"execute": func() -> void: game.is_leech = true,
+		"quotes": [
+			"self-sufficiency\nby any means necessary.",
+			"your health insurance policy\nis no longer necessary.",
+			"drain them before they drain you.\nwe respect the initiative.",
+		],
+		"quotes_done": [],
+	},
+	"weightless": {
+		"title": "Burden Reassignment",
+		"description": func() -> String: return "Decrease carry slowdown by 30%% (%s%% -> %s%%)" % [r(100.0 * (game.item_weight_mult)), g(100.0 * (game.item_weight_mult - 0.3))],
+		"check": func() -> bool: return game.item_weight_mult >= 0.3,
+		"execute": func() -> void: game.item_weight_mult -= 0.3,
+		"quotes": [
+			"lighter load. higher expectations.\nthe math works out",
+			"carry your weight, and then some.",
+		],
+		"quotes_done": [],
+	}
 }
 
 func reveal() -> void:
@@ -189,7 +226,6 @@ func _d(upgrade_name: String) -> String:
 var selected_upgrades = []
 
 func _on_upgrade_card_clicked() -> void:
-	print("yep")
 	apply_upgrade(selected_upgrades[0])
 	get_tree().paused = false
 	visible = false

@@ -70,19 +70,17 @@ layout_mode = 2
 alignment = 1
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1276228259]
-custom_minimum_size = Vector2(0, 73.24)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 0
 mouse_filter = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = SubResource("FontVariation_40ijt")
 theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxEmpty_qdprk")
-text = "Supply Chain Optimization"
+text = "Postmortem DIVIDEND"
 autowrap_mode = 2
-clip_text = true
 uppercase = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=419428712]
@@ -92,8 +90,8 @@ mouse_filter = 1
 theme_override_fonts/normal_font = SubResource("FontVariation_qdprk")
 theme_override_font_sizes/normal_font_size = 18
 bbcode_enabled = true
-text = "Long Description of an Upgrade
-Oh Yeah Check out all these Letters"
+text = "Gain 100% of payout on enemy kill as health.
+(in turn increase throw distance and damage)"
 scroll_active = false
 autowrap_mode = 2
 horizontal_alignment = 2

@@ -1,5 +1,7 @@
 extends Node3D
 
+@onready var version_label: Label = $Menu/Menu/Logo/VersionLabel
+
 
 func _on_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://game.tscn")
@@ -29,3 +31,5 @@ func _ready() -> void:
 	if best > 0:
 		$Menu/Menu/PanelContainer.show()
 		$Menu/Menu/PanelContainer/Label.text = "personAl best: %s" % humanize_number(str(best))
+
+	version_label.text = "POST-JAM v%s" % ProjectSettings.get("application/config/version")

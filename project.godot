@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="PRECIOUS CARGO (Ludum Dare 58 build)"
-config/version="1.0.1"
+config/version="1.1"
 config/tags=PackedStringArray("jam_game")
 run/main_scene="uid://bios7hyy37dgr"
 config/features=PackedStringArray("4.6", "GL Compatibility")
@@ -104,12 +104,12 @@ common/physics_interpolation=true
 [rendering]
 
 textures/canvas_textures/default_texture_filter=3
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+renderer/rendering_method="mobile"
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
 textures/default_filters/use_nearest_mipmap_filter=true
 textures/default_filters/anisotropic_filtering_level=3
-textures/decals/filter=4
+textures/default_filters/texture_mipmap_bias=-0.8
+textures/decals/filter=2
 textures/light_projectors/filter=4
 environment/defaults/default_clear_color=Color(0.12591085, 0.12591085, 0.12591082, 1)

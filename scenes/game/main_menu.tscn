@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dd5odsiforht1" path="res://scenes/game/column.tscn" id="11_he4cy"]
 [ext_resource type="Texture2D" uid="uid://5y8yc2gwwmie" path="res://textures/2d/logo.png" id="13_4oldi"]
 [ext_resource type="FontFile" uid="uid://cibhogromavd7" path="res://fonts/ShifterSans-Regular.otf" id="14_73xsm"]
+[ext_resource type="FontFile" uid="uid://df68ky5i57bj7" path="res://fonts/Outfit-VariableFont_wght.ttf" id="16_fkhs1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fc0e3"]
 shader = ExtResource("2_nsdtn")
@@ -173,9 +174,16 @@ albedo_color = Color(0.8593652, 0.53980464, 0.8593652, 1)
 material = SubResource("StandardMaterial3D_iotsf")
 size = Vector3(1, 0.2, 1)
 
+[sub_resource type="FontVariation" id="FontVariation_21mov"]
+base_font = ExtResource("16_fkhs1")
+variation_opentype = {
+2003265652: 500
+}
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwvss"]
 content_margin_left = 10.0
 content_margin_right = 10.0
+content_margin_bottom = 2.0
 bg_color = Color(0, 0, 0, 1)
 expand_margin_top = 5.0
 expand_margin_bottom = 3.0
@@ -300,6 +308,7 @@ autostart = true
 shape = SubResource("WorldBoundaryShape3D_vef74")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Game/Floor" unique_id=1007550492]
+layers = 3
 mesh = SubResource("PlaneMesh_vef74")
 
 [node name="Barrier" type="Node3D" parent="Game" unique_id=1223256711]
@@ -397,23 +406,24 @@ grow_vertical = 2
 theme_override_constants/separation = 100
 
 [node name="Logo" type="TextureRect" parent="Menu/Menu" unique_id=262497826]
-custom_minimum_size = Vector2(348, 145)
+custom_minimum_size = Vector2(348, 170)
 layout_mode = 2
 texture = ExtResource("13_4oldi")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Menu/Menu/Logo" unique_id=1760287466]
+[node name="VersionLabel" type="Label" parent="Menu/Menu/Logo" unique_id=1760287466]
 layout_mode = 0
-offset_left = 170.0
-offset_top = 152.0
-offset_right = 335.0
-offset_bottom = 169.0
-theme_override_fonts/font = ExtResource("14_73xsm")
+offset_left = 226.0
+offset_top = 182.0
+offset_right = 391.0
+offset_bottom = 203.0
+theme_override_fonts/font = SubResource("FontVariation_21mov")
+theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_dwvss")
-text = "post-jam bug fixes"
+text = "POST-JAM v00.00"
 horizontal_alignment = 1
-uppercase = true
+vertical_alignment = 1
 
 [node name="Button" type="Button" parent="Menu/Menu" unique_id=1260190634]
 layout_mode = 2

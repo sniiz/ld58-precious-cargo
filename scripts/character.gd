@@ -198,7 +198,6 @@ func carry_junk(junk_node: RigidBody3D) -> void:
 	carried_junk.push_back(junk_node)
 	carried_junk_spin.push_back(randf_range(-1.0, -2.0))
 	junk_node.is_carryable = false
-	speed_mod -= junk_node.weight
 	var junk_mesh = MeshInstance3D.new()
 	junk_mesh.mesh = junk_node.mini_mesh
 	junk_mesh.scale = Vector3(junk_node.mini_mesh_scale, junk_node.mini_mesh_scale, junk_node.mini_mesh_scale)
@@ -207,6 +206,7 @@ func carry_junk(junk_node: RigidBody3D) -> void:
 	junk_mesh.position = offset
 	carried_junk_offsets.push_back(offset)
 	junk_node.get_parent().call_deferred("remove_child", junk_node) # ew
+	_recalculate_speed_mod()
 
 func _throw() -> void:
 	if len(carried_junk) == 0: return
@@ -214,7 +214,6 @@ func _throw() -> void:
 	carried_junk_spin.pop_back()
 	carried_junk_offsets.pop_back()
 	#junk.reparent(get_parent(), false)
-	speed_mod += junk.weight
 	add_sibling(junk)
 	junk_anchor.get_child(-1).queue_free()
 	junk.global_position = throw_marker.global_position
@@ -226,6 +225,13 @@ func _throw() -> void:
 	hand_animator.stop()
 	hand_animator.play("recoil")
 	junk_offset.y -= 0.075
+	_recalculate_speed_mod()
+
+func _recalculate_speed_mod() -> void:
+	var speed_mod_mult : float = get_parent().item_weight_mult
+	speed_mod = 0.0
+	for junk in carried_junk:
+		speed_mod -= junk.weight * speed_mod_mult
 
 func _handle_throwing() -> void:
 	throw_cooldown_frames = get_parent().throw_cooldown
@@ -247,8 +253,9 @@ func on_damage(damage: float) -> void:
 		config.save("user://pref.cfg")
 		get_parent().transition()
 
-func heal(damage: float) -> void:
-	health += damage
+func heal(damage: float, can_overheal := true) -> void:
+	if can_overheal || health < max_health: arm_flash_anim.play("heal")
+	health = (health + damage) if can_overheal else min(health + damage, max_health)
 
 func _handle_raycast() -> void:
 	if raycast.is_colliding():
@@ -303,7 +310,7 @@ func _physics_process(delta: float) -> void:
 
 	if Engine.get_physics_frames() % 2: _handle_raycast()
 
-	if targeted_node and Input.is_action_just_pressed("deposit") and targeted_node.is_in_group("deposit"):
+	if targeted_node and Input.is_action_just_pressed("deposit") and targeted_node.is_in_group("deposit") and carried_junk.size() > 0:
 		if targeted_node.deposit(carried_junk, self):
 			var mult : float = get_parent().loot_payout_mult
 			for node in junk_anchor.get_children():
