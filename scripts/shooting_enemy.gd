@@ -35,7 +35,7 @@ func on_damage(damage: float) -> void:
 	if health <= 0:
 		var payout := ceili(randi_range(6, 8) * get_parent().enemy_payout_mult)
 		target.add_money(payout)
-		if get_parent().is_leech: target.heal(10, false)
+		if get_parent().is_leech: target.heal(6, false)
 		queue_free()
 
 func _physics_process(delta: float) -> void:

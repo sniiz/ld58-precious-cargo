@@ -112,7 +112,7 @@ var upgrades = {
 		"check": func() -> bool: return true,
 		"execute": func() -> void: game.throw_speed = game.throw_speed + 6,
 		"quotes": [
-			"physical improvement\nmandated by hr.",
+			"physical improvement\nmandated by HR.",
 			"you are now stronger.\ndo not start getting ideas.",
 			"we invested in your body.\nwe expect a return on that investment.",
 		],
@@ -158,7 +158,7 @@ var upgrades = {
 	"leech": {
 		"title": "Postmortem Dividend",
 		# "description": func() -> String: return "Gain health equal to 100%% of kill payout.\n%s" % r("Mandatory Recovery (healing) no longer appears."),
-		"description": func() -> String: return "Gain 10HP on kill, up to 100HP total.\n%s" % r("Mandatory Recovery (healing) no longer appears."),
+		"description": func() -> String: return "Gain 6HP on kill, up to 100HP total.\n%s" % r("Mandatory Recovery (healing) no longer appears."),
 		"check": func() -> bool: return !game.is_leech,
 		"execute": func() -> void: game.is_leech = true,
 		"quotes": [
