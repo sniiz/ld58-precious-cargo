@@ -12,6 +12,7 @@
 [ext_resource type="Shader" uid="uid://bt7nup1l0p5o" path="res://shaders/transition.gdshader" id="9_mfdv2"]
 [ext_resource type="PackedScene" uid="uid://dr4cmmisfumy5" path="res://scenes/ui/dialog_manager.tscn" id="9_vef74"]
 [ext_resource type="PackedScene" uid="uid://dd5odsiforht1" path="res://scenes/game/column.tscn" id="11_mfdv2"]
+[ext_resource type="Texture2D" uid="uid://lmir1h56y6e" path="res://textures/3d/baluster.png" id="13_lc2xo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fc0e3"]
 shader = ExtResource("1_feb5d")
@@ -158,22 +159,38 @@ size = Vector2(50, 50)
 [sub_resource type="BoxShape3D" id="BoxShape3D_vef74"]
 size = Vector3(1, 50, 50)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mfdv2"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc2xo"]
 albedo_texture = ExtResource("1_80nbo")
 uv1_scale = Vector3(15, 15, 1)
 texture_filter = 4
 
 [sub_resource type="BoxMesh" id="BoxMesh_mfdv2"]
-material = SubResource("StandardMaterial3D_mfdv2")
+material = SubResource("StandardMaterial3D_lc2xo")
 size = Vector3(15.8, 1, 15.8)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iotsf"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_215e1"]
 shading_mode = 0
 albedo_color = Color(0.8593652, 0.53980464, 0.8593652, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lc2xo"]
-material = SubResource("StandardMaterial3D_iotsf")
+material = SubResource("StandardMaterial3D_215e1")
 size = Vector3(1, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7sc4i"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("13_lc2xo")
+emission_enabled = true
+emission_energy_multiplier = 0.3
+emission_texture = ExtResource("13_lc2xo")
+uv1_scale = Vector3(166.668, 1, 1)
+texture_filter = 4
+distance_fade_min_distance = 20.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_7sc4i"]
+material = SubResource("StandardMaterial3D_7sc4i")
+size = Vector2(50, 1.2)
 
 [node name="Game" type="Node3D" unique_id=794229392]
 process_mode = 3
@@ -349,6 +366,22 @@ light_color = Color(0.8460169, 0.5315286, 0.8460169, 1)
 light_energy = 10.0
 omni_range = 13.0
 omni_attenuation = 2.0
+
+[node name="Railing" type="MeshInstance3D" parent="." unique_id=1970996161]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -25)
+mesh = SubResource("QuadMesh_7sc4i")
+
+[node name="Railing2" type="MeshInstance3D" parent="." unique_id=738699105]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.6, 25)
+mesh = SubResource("QuadMesh_7sc4i")
+
+[node name="Railing3" type="MeshInstance3D" parent="." unique_id=2117656875]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -25, 0.6, 0)
+mesh = SubResource("QuadMesh_7sc4i")
+
+[node name="Railing4" type="MeshInstance3D" parent="." unique_id=1888935034]
+transform = Transform3D(-2.1855693e-07, 0, -1, 0, 1, 0, 1, 0, -2.1855693e-07, 25, 0.6, 0)
+mesh = SubResource("QuadMesh_7sc4i")
 
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
 [connection signal="timeout" from="JunkTimer" to="." method="_on_test_timer_timeout"]

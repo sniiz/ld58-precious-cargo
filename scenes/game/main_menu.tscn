@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://chi2h3q6sft7e" path="res://textures/3d/texture_05.png" id="10_p78u7"]
 [ext_resource type="PackedScene" uid="uid://dd5odsiforht1" path="res://scenes/game/column.tscn" id="11_he4cy"]
 [ext_resource type="Texture2D" uid="uid://5y8yc2gwwmie" path="res://textures/2d/logo.png" id="13_4oldi"]
+[ext_resource type="Texture2D" uid="uid://lmir1h56y6e" path="res://textures/3d/baluster.png" id="13_ados7"]
 [ext_resource type="FontFile" uid="uid://cibhogromavd7" path="res://fonts/ShifterSans-Regular.otf" id="14_73xsm"]
 [ext_resource type="FontFile" uid="uid://df68ky5i57bj7" path="res://fonts/Outfit-VariableFont_wght.ttf" id="16_fkhs1"]
 
@@ -162,7 +163,7 @@ albedo_texture = ExtResource("10_p78u7")
 uv1_scale = Vector3(15, 15, 1)
 texture_filter = 4
 
-[sub_resource type="BoxMesh" id="BoxMesh_mfdv2"]
+[sub_resource type="BoxMesh" id="BoxMesh_648uh"]
 material = SubResource("StandardMaterial3D_mfdv2")
 size = Vector3(15.8, 1, 15.8)
 
@@ -170,9 +171,25 @@ size = Vector3(15.8, 1, 15.8)
 shading_mode = 0
 albedo_color = Color(0.8593652, 0.53980464, 0.8593652, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_73xsm"]
+[sub_resource type="BoxMesh" id="BoxMesh_dwvss"]
 material = SubResource("StandardMaterial3D_iotsf")
 size = Vector3(1, 0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_215e1"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("13_ados7")
+emission_enabled = true
+emission_energy_multiplier = 0.3
+emission_texture = ExtResource("13_ados7")
+uv1_scale = Vector3(166.668, 1, 1)
+texture_filter = 4
+distance_fade_min_distance = 20.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_yypk0"]
+material = SubResource("StandardMaterial3D_215e1")
+size = Vector2(50, 1.2)
 
 [sub_resource type="FontVariation" id="FontVariation_21mov"]
 base_font = ExtResource("16_fkhs1")
@@ -357,26 +374,53 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7)
 [node name="Column4" parent="Game" unique_id=1691543221 instance=ExtResource("11_he4cy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Game" unique_id=1486526527]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Game" unique_id=1190025187]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.9, 0)
-mesh = SubResource("BoxMesh_mfdv2")
+mesh = SubResource("BoxMesh_648uh")
 skeleton = NodePath("")
 
-[node name="ReflectionProbe" type="ReflectionProbe" parent="Game" unique_id=1448879714]
+[node name="ReflectionProbe" type="ReflectionProbe" parent="Game" unique_id=1564069665]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3000002, 0)
 visible = false
 size = Vector3(53, 10, 57)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Game" unique_id=89272043]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2999997, 0)
-mesh = SubResource("BoxMesh_73xsm")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Game" unique_id=284772921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 6.2999997, 0)
+mesh = SubResource("BoxMesh_dwvss")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Game/MeshInstance3D" unique_id=610706208]
+[node name="OmniLight3D" type="OmniLight3D" parent="Game/MeshInstance3D" unique_id=1979019450]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 light_color = Color(0.8460169, 0.5315286, 0.8460169, 1)
 light_energy = 10.0
 omni_range = 13.0
 omni_attenuation = 2.0
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Game" unique_id=936271584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 6.2999997, 0)
+mesh = SubResource("BoxMesh_dwvss")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Game/MeshInstance3D3" unique_id=278665676]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+light_color = Color(0.8460169, 0.5315286, 0.8460169, 1)
+light_energy = 10.0
+omni_range = 13.0
+omni_attenuation = 2.0
+
+[node name="Railing" type="MeshInstance3D" parent="Game" unique_id=1194184627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -25)
+mesh = SubResource("QuadMesh_yypk0")
+
+[node name="Railing2" type="MeshInstance3D" parent="Game" unique_id=1223783715]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.6, 25)
+mesh = SubResource("QuadMesh_yypk0")
+
+[node name="Railing3" type="MeshInstance3D" parent="Game" unique_id=1367897771]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -25, 0.6, 0)
+mesh = SubResource("QuadMesh_yypk0")
+
+[node name="Railing4" type="MeshInstance3D" parent="Game" unique_id=1846245611]
+transform = Transform3D(-2.1855693e-07, 0, -1, 0, 1, 0, 1, 0, -2.1855693e-07, 25, 0.6, 0)
+mesh = SubResource("QuadMesh_yypk0")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=567992111]
 transform = Transform3D(0.75628763, 0.11782194, 0.6435426, 0, 0.98365015, -0.18009, -0.65423924, 0.13619983, 0.7439225, 1.0498543, 0.71698517, 22.501259)
